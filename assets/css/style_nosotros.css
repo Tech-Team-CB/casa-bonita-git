@@ -1,0 +1,377 @@
+/* Estilos específicos para la página Nosotros */
+
+    /* Hero Section */
+
+    /* Header/navigation styles moved to assets/css/style_header,footer.css */
+
+        .about-hero {
+            background: #82b8e5;
+            color: white;
+            padding: 1rem 0 2rem;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .about-hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        /* Estilos del carrusel */
+        .carousel-container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 500px;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 2rem;
+            text-align: left;
+        }
+
+        .slide-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        #prevBtn {
+            left: 20px;
+        }
+
+        #nextBtn {
+            right: 20px;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        /* Sección de información */
+        .about-section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: #000;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-item h4 {
+            color: #000  ;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .carousel {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-hero p {
+                font-size: 1.1rem;
+            }
+
+            /* En móvil: dejar que la imagen determine la altura para evitar recortes raros */
+            .carousel {
+                height: auto;
+            }
+
+            /* Ajustes de imagen para móvil: usar contain para evitar cortar áreas importantes. 
+               Si prefieres un recorte más cinematográfico, cambia 'contain' a 'cover'. */
+            .carousel-slide {
+                position: static; /* permitir que el contenido fluya debajo de la imagen */
+            }
+
+            .carousel-slide img {
+                width: 100%;
+                height: auto;
+                max-height: 60vh;
+                object-fit: contain;
+                object-position: center top;
+                background: #000; /* fondo si hay letterbox */
+                display: block;
+            }
+
+            /* En móvil colocamos el texto DEL SLIDE debajo de la imagen (no overlay) */
+            .slide-content {
+                position: relative;
+                background: #ffffff; /* fondo claro para buena legibilidad */
+                color: #111;
+                padding: 1rem;
+                margin-top: 0.25rem;
+                box-shadow: 0 -6px 18px rgba(0,0,0,0.06);
+                text-align: left;
+            }
+
+            .slide-content h3 {
+                font-size: 1.4rem;
+            }
+
+            .slide-content p {
+                font-size: 0.95rem;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            /* Controles más pequeños en móvil para no tapar contenido */
+            .carousel-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1.2rem;
+            }
+
+            .carousel-indicators {
+                bottom: 12px;
+            }
+        }
+
+        /* ====== VALORES SECTION (diseño bonito) ====== */
+        .valores-section {
+            padding: 42px 20px;
+            background: #ffffff;
+            position: relative;
+        }
+
+        .valores-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="60" r="1" fill="rgba(255,255,255,0.08)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .valores-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .valores-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .valores-title h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.6rem;
+            font-weight: 700;
+            color: #000;
+            margin: 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .valores-title h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: #eac736;
+            margin: 15px auto 0;
+            border-radius: 2px;
+            box-shadow: 0 2px 10px rgba(230, 126, 34, 0.3);
+        }
+
+        .valores-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .valor-card {
+            background: #fefcf3;
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 248, 220, 0.8);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .valor-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .valor-card h4 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .valor-card h4::before {
+            content: '✦';
+            font-size: 1.2rem;
+            color: #eac736;
+            margin-right: 8px;
+            display: inline-block;
+            line-height: 1;
+            text-shadow: 0 2px 8px hsl(48.33deg 81.08% 56.47%);
+        }
+        .valor-card p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .valores-cards {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .valores-section {
+                padding: 60px 15px;
+            }
+
+            .valores-title h2 {
+                font-size: 2.5rem;
+            }
+
+            .valores-cards {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .valor-card {
+                padding: 25px 20px;
+            }
+        }
+    

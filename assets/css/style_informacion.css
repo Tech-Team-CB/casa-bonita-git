@@ -1,0 +1,390 @@
+/* Estilos específicos para informacion.html */
+:root {
+    --container-width: 1100px;
+    --accent: #1f1f1f;
+    --accent-hover: #fafafa;
+    --muted: #666;
+    --light-bg: #f8f9fa;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --section-spacing: 2.5rem;
+    --section-padding: 2rem;
+    --text-color: #333;
+    --heading-color: #000;
+    --border-color: #e1e4e8;
+}
+
+/* Estilos generales */
+.informacion-main {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 2rem 1rem 2rem;
+}
+
+/* Estilos para títulos */
+.informacion-main h1 {
+    color: var(--heading-color);
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.8rem;
+}
+
+.informacion-main h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+.informacion-main h2 {
+    color: var(--heading-color);
+    font-size: 1.8rem;
+    margin: var(--section-spacing) 0 1.5rem;
+    position: relative;
+    padding-bottom: 0.8rem;
+}
+
+.informacion-main h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+.informacion-main h3 {
+    color: var(--heading-color);
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+}
+
+.informacion-main h4 {
+    color: var(--heading-color);
+    font-size: 1.2rem;
+    margin: 1.2rem 0 0.8rem;
+}
+
+/* Estilos para párrafos y texto */
+.informacion-main p {
+    color: var(--text-color);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+}
+
+/* Estilos para secciones */
+.info-section,
+.faq-section,
+.terminos-section,
+.privacidad-section, .marco-legal-section{
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: var(--section-padding);
+    margin-bottom: var(--section-spacing);
+    border-top: 4px solid var(--accent);
+}
+
+/* Sección de información */
+.info-grid {
+    display: flex;
+    gap: 2rem;
+    margin: 1.5rem 0;
+    flex-direction: column;
+
+}
+
+.info-grid > div {
+    flex: 1;
+    background: var(--light-bg);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.info-grid > div:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Sección de Preguntas Frecuentes */
+.faq-item {
+    border-left: 4px solid var(--accent);
+    padding: 1.2rem 1.5rem;
+    margin: 1.2rem 0;
+    background: #fbfbff;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    transition: var(--transition);
+}
+
+.faq-item:hover {
+    background: #f5f8ff;
+    transform: translateX(5px);
+}
+
+.faq-item h4 {
+    color: var(--accent);
+    margin-top: 0;
+}
+
+/* Sección de Términos y Condiciones */
+.terminos-section ul {
+    margin: 1.2rem 0 1.2rem 1.5rem;
+    padding: 0;
+}
+
+.terminos-section li {
+    margin-bottom: 0.8rem;
+    color: var(--text-color);
+    line-height: 1.6;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.terminos-section li::before {
+    color: var(--accent);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* Enlaces */
+.informacion-main a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.informacion-main a:hover {
+    color: white;
+    text-decoration: underline;
+    background: black;
+}
+
+/* Estilos para la sección de reclamaciones */
+.reclamaciones-section {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 2rem;
+    margin: 2rem 0;
+    border-top: 4px solid var(--accent);
+}
+
+.reclamaciones-section h2 {
+    color: #000;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    position: relative;
+    padding-bottom: 0.8rem;
+}
+
+.reclamaciones-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 3px;
+}
+
+.iframe-container {
+    margin: 1.5rem 0;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    background: white;
+    transition: var(--transition);
+    border: 1px solid #e1e4e8;
+}
+
+.iframe-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.iframe-container iframe {
+    display: block;
+    width: 100%;
+    min-height: 1200px;
+    border: none;
+}
+
+.contact-methods {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eaeef2;
+}
+
+.contact-methods p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    color: var(--muted);
+}
+
+.contact-methods a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: var(--transition);
+    margin-left: 0.5rem;
+}
+
+.contact-methods a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+.contact-methods svg {
+    margin-right: 0.8rem;
+    color: var(--accent);
+    width: 20px;
+    height: 20px;
+}
+
+.reclamaciones-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.reclamaciones-actions .btn {
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+}
+
+.btn-accent {
+    background: var(--accent);
+    color: white!important;
+}
+
+.btn-accent:hover {
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border-color: var(--accent) !important;
+}
+
+.btn-outline:hover {
+    background: rgba(30, 144, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Estilos responsivos */
+@media (max-width: 992px) {
+    .informacion-main h1 {
+        font-size: 2rem;
+    }
+    
+    .informacion-main h2 {
+        font-size: 1.6rem;
+    }
+    
+    .info-grid {
+        gap: 1.2rem;
+    }
+    
+    .info-grid > div {
+        padding: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .info-grid {
+        flex-direction: column;
+    }
+    
+    .info-grid > div {
+        width: 100%;
+    }
+    
+    .informacion-main {
+        padding: 1.5rem 1rem 3rem;
+    }
+    
+    .informacion-main h1 {
+        font-size: 1.8rem;
+        padding-bottom: 0.6rem;
+    }
+    
+    .informacion-main h2 {
+        font-size: 1.5rem;
+        margin: 2rem 0 1.2rem;
+        padding-bottom: 0.6rem;
+    }
+    
+    .info-section,
+    .faq-section,
+    .terminos-section,
+    .privacidad-section,
+    .reclamaciones-section {
+        padding: 1.5rem 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .faq-item {
+        padding: 1rem 1.2rem;
+        margin: 1rem 0;
+    }
+    
+    .reclamaciones-actions {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .reclamaciones-actions .btn {
+        width: 85%;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .informacion-main h1 {
+        font-size: 1.6rem;
+    }
+    
+    .informacion-main h2 {
+        font-size: 1.4rem;
+    }
+    
+    .info-grid > div,
+    .faq-item,
+    .terminos-section ul {
+        padding-left: 1rem;
+    }
+    
+    .terminos-section li {
+        padding-left: 1.5rem;
+    }
+    
+    .reclamaciones-section .contact-methods p {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .reclamaciones-section .contact-methods svg {
+        margin-bottom: 0.5rem;
+    }
+}

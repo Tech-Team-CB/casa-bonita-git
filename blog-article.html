@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artículo del Blog - Casa Bonita Residencial</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/img/faviconCasabonita.png" type="image/png">
+
+  <!-- Preconnect to Google Fonts for faster loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style_header_footer.css">
+  <link rel="stylesheet" href="assets/css/style_blog.css">
+  <link rel="stylesheet" href="assets/css/style_blog_articles.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="main-header">
+
+    <!-- Promotional top bar (compact) -->
+    <div class="top-promo">
+      <div class="container">
+        <div class="promo-text">
+          <span class="promo-emoji">🎉</span>
+          <span class="promo-main"><strong>¡Atención!</strong> Si reservas tu cita en oficina, obtienes <strong>10% de
+              descuento</strong> en la compra de tu inmueble.</span>
+        </div>
+        <div class="promo-actions" style="flex:0 0 auto;">
+          <button class="btn btn-hero" onclick="openWhatsApp()">Agendar cita</button>
+          <button class="promo-close" aria-label="Cerrar promoción">×</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="header-content">
+        <!-- Logo -->
+        <div class="logo">
+          <a href="index.html">
+            <img src="assets/img/LOGO WEBP NEGRO.webp" alt="Casa Bonita Logo" class="logo-img">
+          </a>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav">
+          <a href="index.html">Inicio</a>
+          <a href="index.html#proyecto">Proyecto</a>
+          <a href="index.html#techo-propio">Techo Propio</a>
+          <a href="contacto.html" class="nav-link">Contacto</a>
+          <a href="informacion.html" class="nav-link">Informacion</a>
+          <a href="nosotros.html" class="nav-link">Nosotros</a>
+          <a href="documentos.html" class="nav-link">Documentos</a>
+          <a href="blog.html" class="nav-link active">Blog</a>
+        </nav>
+
+        <!-- CTA Button -->
+        <div class="cta-button">
+          <button class="btn btn-hero" onclick="openWhatsApp()">
+            ¡Consulta Aquí!
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Artículo -->
+<article class="article">
+  <div class="container">
+    <a href="blog.html" class="back-to-blog"><i class="fas fa-arrow-left"></i> Volver al blog</a>
+  </div>
+
+  <div id="article-loading" class="loading">Cargando artículo...</div>
+
+  <div id="article-not-found" class="not-found" style="display: none;">
+    <h2>Artículo no encontrado</h2>
+    <p>Lo sentimos, el artículo que buscas no existe o ha sido eliminado.</p>
+    <a href="blog.html" class="btn btn-primary">Volver al blog</a>
+  </div>
+
+  <div id="article-content" class="container" style="display: none;">
+    <div class="article-body">
+      <div id="article-body" class="article-content"></div>
+    </div>
+  </div>
+</article>
+
+
+  <!-- Contacto rápido -->
+  <section class="icon_contact-section" aria-label="Contacto rápido">
+    <h3 class="icon_contact-title">Contáctanos</h3>
+    <div class="icon_contact-grid">
+      <div class="icon_contact-card" data-whatsapp="true">
+        <div class="icon_contact-icon icon_contact-whatsapp-icon">
+          <!-- WhatsApp SVG -->
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.106">
+            </path>
+          </svg>
+        </div>
+        <h4>WhatsApp</h4>
+        <p>+51 946 552 086</p>
+        <a href="https://wa.me/51946552086" target="_blank" rel="noopener noreferrer" class="icon_contact-link"
+          data-whatsapp="true">Enviar mensaje</a>
+      </div>
+      <div class="icon_contact-card">
+        <div class="icon_contact-icon icon_contact-website-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-globe">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+            <path d="M2 12h20" />
+          </svg>
+        </div>
+        <h4>Sitio Web</h4>
+        <p>casabonita.pe</p>
+        <a href="https://casabonita.pe" target="_blank" rel="noopener noreferrer" class="icon_contact-link">Visitar
+          sitio</a>
+      </div>
+      <div class="icon_contact-card">
+        <div class="icon_contact-icon icon_contact-facebook-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+        </div>
+        <h4>Facebook</h4>
+        <p>@casabonita.residencial</p>
+        <a href="https://www.facebook.com/casabonita.residencial/" target="_blank" rel="noopener noreferrer"
+          class="icon_contact-link">Seguir</a>
+      </div>
+      <div class="icon_contact-card">
+        <div class="icon_contact-icon icon_contact-instagram-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+          </svg>
+        </div>
+        <h4>Instagram</h4>
+        <p>@casabonita.residencial</p>
+        <a href="https://www.instagram.com/casabonita.residencial/" target="_blank" rel="noopener noreferrer"
+          class="icon_contact-link">Seguir</a>
+      </div>
+      <div class="icon_contact-card">
+        <div class="icon_contact-icon icon_contact-tiktok-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.26 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+          </svg>
+        </div>
+        <h4>TikTok</h4>
+        <p>@casabonita.residencial</p>
+        <a href="https://www.tiktok.com/@casabonita.residencial/" target="_blank" rel="noopener noreferrer"
+          class="icon_contact-link">Seguir</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <!-- Logo y descripción -->
+        <div class="footer-section">
+          <div class="footer-logo">
+            <img src="assets/img/LOGO PNG BLANCO.webp" alt="Casa Bonita Logo" class="footer-logo-img" loading="lazy">
+          </div>
+          <p class="footer-description">
+            Tu hogar soñado en Piura te espera. Únete a las más de 300 familias que ya eligieron Casa Bonita Residencial
+            como la mejor opción para su futuro.
+          </p>
+          <!-- social links removed -->
+        </div>
+
+        <!-- Enlaces rápidos -->
+        <div class="footer-section">
+          <h4>Enlaces rápidos</h4>
+          <ul class="footer-links">
+            <a href="index.html">Inicio</a>
+            <a href="index.html#proyecto">Sobre el proyecto</a>
+            <a href="index.html#modelos">Modelos de vivienda</a>
+            <a href="index.html#techo-propio">Programa Techo Propio</a>
+            <a href="index.html#proceso">Proceso de compra</a>
+          </ul>
+        </div>
+
+        <!-- Información -->
+        <div class="footer-section">
+          <h4>Información</h4>
+          <ul class="footer-links">
+            <li><a href="informacion.html#libro-reclamaciones">Libro de Reclamaciones</a></li>
+            <li><a href="informacion.html#preguntas-frecuentes">Preguntas frecuentes</a></li>
+            <li><a href="informacion.html#terminos">Términos y condiciones</a></li>
+            <li><a href="informacion.html#privacidad">Política de privacidad</a></li>
+            <li><a href="informacion.html">¿Quiénes somos?</a></li>
+          </ul>
+        </div>
+
+        <!-- Contacto -->
+        <div class="footer-section">
+          <h4>Contacto</h4>
+          <div class="footer-contact">
+            <div class="footer-contact-item">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+                            <span><a href="https://wa.me/51946552086" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">+51 946 552 086</a></span>
+            </div>
+            <div class="footer-contact-item">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+                            <span><a href="https://maps.app.goo.gl/6cWEoPFX8cWQvAre9" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">AAHH La Primavera MZ B 1Lote26. CASTILLA</a></span>
+            </div>
+            <div class="footer-contact-item">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+                            <span><a href="https://maps.app.goo.gl/deNwYLTT2i6a2jfB7" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Calle San Cristóbal 217 - Sta. Isabel. Piura</a></span>
+            </div>
+            <div class="footer-contact-item">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12,6 12,12 16,14" />
+              </svg>
+              <span>Lun - Sab: 9:00 - 18:00</span>
+            </div>
+            <div class="footer-contact-item">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              <span>asignaciones@casabonita.pe</span>
+            </div>
+            <div class="footer-whatsapp-button">
+              <button class="btn btn-whatsapp-footer" onclick="openWhatsApp()">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.106">
+                  </path>
+                </svg>
+                <span>Escríbenos por WhatsApp</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer bottom -->
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2025 Casa Bonita Residencial. Todos los derechos reservados.
+        </div>
+        <div class="footer-approval">
+          <span> Bajo el formato Techo Propio </span>
+          <div class="approval-badge">
+            <div class="approval-icon">MV</div>
+            <a href="https://www.mivivienda.com.pe/" target="_blank" rel="noopener noreferrer"><span>Fondo MIVIVIENDA</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-disclaimer"
+        style="margin-top: 20px; font-size: 0.8em; color: #999; text-align: center; padding: 0 20px;">
+        Disclaimer: El proyecto "Casa Bonita Residencial" está en desarrollo, bajo los estandares que señala el
+        MINISTERIO DE VIVIENDA, CONSTRUCCIÓN Y SANEAMIENTO de Perú bajo la RESOLUCIÓN MINISTERIAL Nº 0104-2025-VIVIENDA,
+        que regula el Reglamento Operativo Para Acceder al Bono Familiar Habitacional en la Modalidad de Adquisición de
+        Vivienda Nueva Techo Propio del Fondo MIVIVIENDA. Las imágenes y descripciones son referenciales y pueden
+        cambiar sin previo aviso. Esta información no constituye una oferta contractual. Para detalles actualizados,
+        contáctenos por nuestros canales oficiales. RUC: 20613704214.
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flotante -->
+  <div class="whatsapp-float">
+    <button onclick="openWhatsApp()" class="whatsapp-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.106">
+        </path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+  (function(){
+    const params = new URLSearchParams(window.location.search);
+    const articleId = params.get("id");
+
+    // Asegúrate de que el fetch apunte al backend (Flask) en el puerto donde corre (por defecto 5000).
+    const API_BASE = 'https://casabonita.pe/admin_blog';
+
+    if (!articleId) {
+      console.error('No se especificó id de artículo en la query string');
+      document.getElementById("article-loading").style.display = "none";
+      document.getElementById("article-not-found").style.display = "block";
+      return;
+    }
+
+    fetch(`${API_BASE}/api/blogs/${articleId}`)
+      .then(res => {
+        if (!res.ok) {
+          // Si el servidor devuelve 404/500 etc. mostrar mensaje y evitar parseo JSON inválido
+          console.error('HTTP error', res.status, res.statusText);
+          document.getElementById("article-loading").style.display = "none";
+          document.getElementById("article-not-found").style.display = "block";
+          throw new Error('HTTP error ' + res.status);
+        }
+        // Intentar parsear JSON solo si Content-Type lo indica
+        const ct = res.headers.get('content-type') || '';
+        if (ct.includes('application/json')) return res.json();
+        throw new Error('Respuesta no es JSON');
+      })
+      .then(data => {
+        if (data && data.ok && data.blog) {
+          document.getElementById("article-body").innerHTML = data.blog.contenido;
+          document.getElementById("article-loading").style.display = "none";
+          document.getElementById("article-content").style.display = "block";
+        } else {
+          document.getElementById("article-loading").style.display = "none";
+          document.getElementById("article-not-found").style.display = "block";
+        }
+      })
+      .catch(err => {
+        console.error('Fetch error:', err);
+        document.getElementById("article-loading").style.display = "none";
+        document.getElementById("article-not-found").style.display = "block";
+      });
+  })();
+  </script>
+
+
+
+<script src="assets/js/script.js" defer></script>
+
+
+</body>
+
+</html>
