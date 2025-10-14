@@ -10,7 +10,7 @@ const API_CONFIG = {
   
   authUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:3002/auth/external/token' // Desarrollo local  
-    : 'https://casabonita.pe/auth/external/token', // CAMBIAR por tu URL de producción
+    : 'https://proxy.casabonita.pe/auth/external/token', // CAMBIAR por tu URL de producción
   
   projectCode: 'CASABONITA',
   stageIds: [1, 2],
