@@ -6,11 +6,11 @@ const API_CONFIG = {
   // Cambiar por tu dominio de producción
   baseUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:3002/api/units/stock' // Desarrollo local
-    : 'https://casabonita.pe/api/units/stock', // CAMBIAR por tu URL de producción
+    : 'https://proxy.casabonita.pe/api/units/stock', // URL del proxy en producción
   
   authUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:3002/auth/external/token' // Desarrollo local  
-    : 'https://proxy.casabonita.pe/auth/external/token', // CAMBIAR por tu URL de producción
+    : 'https://proxy.casabonita.pe/auth/external/token', // URL del proxy en producción
   
   projectCode: 'CASABONITA',
   stageIds: [1, 2],
