@@ -6,16 +6,24 @@ const API_CONFIG = {
   // Cambiar por tu dominio de producción
   baseUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:3002/api/units/stock' // Desarrollo local
-    : 'https://proxy.casabonita.pe/api/units/stock', // URL del proxy en producción
+    : 'https://proxy.casabonita.pe/api/units/stock', // CAMBIAR por tu URL de producción
   
   authUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://localhost:3002/auth/external/token' // Desarrollo local  
-    : 'https://proxy.casabonita.pe/auth/external/token', // URL del proxy en producción
+    ? 'http://localhost:3002/auth/external/token' // Desarrollo local
+    : 'https://proxy.casabonita.pe/auth/external/token', // CAMBIAR por tu URL de producción
   
   projectCode: 'CASABONITA',
   stageIds: [1, 2],
   token: '' // Se obtiene del proxy automáticamente
   // ✅ SEGURIDAD: apiKey y subdomain eliminados del frontend
+};
+
+// Dimensiones por defecto para lotes (fallback cuando la API no las proporciona)
+const DIMENSIONES_DEFAULT = {
+  izquierda: '6.00 M',
+  derecha: '6.00 M',
+  frente: '11.00 M',
+  fondo: '11.00 M'
 };
 
 // Función para obtener token inicial al cargar la página
@@ -111,6 +119,13 @@ async function getUnitsData() {
                       stageId: stageId,
                       stageName: unit.stageName,
                       blockName: unit.blockName,
+                      // Agregar dimensiones desde la API
+                      dimensions: unit.dimensions ? {
+                        front: unit.dimensions.front,
+                        right: unit.dimensions.right,
+                        left: unit.dimensions.left,
+                        back: unit.dimensions.back
+                      } : null,
                       lastUpdated: new Date().toISOString()
                     };
                   }
@@ -143,6 +158,13 @@ async function getUnitsData() {
               stageId: stageId,
               stageName: unit.stageName,
               blockName: unit.blockName,
+              // Agregar dimensiones desde la API
+              dimensions: unit.dimensions ? {
+                front: unit.dimensions.front,
+                right: unit.dimensions.right,
+                left: unit.dimensions.left,
+                back: unit.dimensions.back
+              } : null,
               lastUpdated: new Date().toISOString()
             };
           }
@@ -174,7 +196,8 @@ function getLotInfo(lotCode) {
   
   return {
     status: unit.estado || 'N/A',
-    area: unit.area || 0
+    area: unit.area || 0,
+    dimensions: unit.dimensions || null
   };
 }
 
@@ -336,12 +359,7 @@ function updateExistingPolygons() {
           manzana: lotInfo.manzana,
           loteNumero: lotInfo.lote,
           tipo: 'Residencial',
-          dimensiones: {
-            izquierda: '8.00 ML',
-            derecha: '8.00 ML', 
-            frente: '15.00 ML',
-            fondo: '15.00 ML'
-          },
+          dimensiones: DIMENSIONES_DEFAULT,
           whatsappLink: `https://wa.me/51946552086?text=Hola,%20estoy%20interesado%20en%20el%20lote%20${lotId.replace('Lote ', '')}`
         };
         
@@ -362,7 +380,7 @@ function updateExistingPolygons() {
 
 // Precarga de imágenes para evitar demoras en el renderizado
 const imageCache = {};
-const preloadImages = ['assets/img/ETAPA GENERAL.webp', 'assets/img/ETAPA 1 img.webp', 'assets/img/ETAPA 2 img.webp'];
+const preloadImages = ['ETAPA GENERAL.webp', 'ETAPA 1 img.webp', 'ETAPA 2 img.webp'];
 function preloadImage(src) {
   if (!imageCache[src]) {
     const img = new Image();
@@ -426,20 +444,20 @@ function setOverlay(imageSrc, dims) {
   }
 }
 
-if (imageCache['assets/img/ETAPA GENERAL.webp']) {
+if (imageCache['ETAPA GENERAL.webp']) {
   // Solo aplicar el overlay si el sector actual es 'completo'
   if (currentSector === 'completo') {
-    setOverlay('assets/img/ETAPA GENERAL.webp', sectorSizes['completo']);
+    setOverlay('ETAPA GENERAL.webp', sectorSizes['completo']);
   }
 } else {
   const img = new Image();
   img.onload = () => {
     // Solo aplicar el overlay si el sector actual sigue siendo 'completo'
     if (currentSector === 'completo') {
-      setOverlay('assets/img/ETAPA GENERAL.webp', sectorSizes['completo']);
+      setOverlay('ETAPA GENERAL.webp', sectorSizes['completo']);
     }
   };
-  img.src = 'assets/img/ETAPA GENERAL.webp';
+  img.src = 'ETAPA GENERAL.webp';
 }
 
 const polygons = [];
@@ -494,10 +512,10 @@ function cargarLotes(archivo) {
 
       const batchSize = 50;
       let currentBatch = 0;
-
+      
       // Verificar si estamos cargando amenidades (images.json)
       const isAmenidades = archivo.includes('images.json');
-
+      
       function processBatch() {
         const start = currentBatch * batchSize;
         const end = Math.min(start + batchSize, lotes.length);
@@ -573,12 +591,7 @@ function cargarLotes(archivo) {
                   manzana: infoLote.manzana,
                   loteNumero: infoLote.lote,
                   tipo: 'Residencial',
-                  dimensiones: {
-                    izquierda: '8.00 ML',
-                    derecha: '8.00 ML', 
-                    frente: '15.00 ML',
-                    fondo: '15.00 ML'
-                  },
+                  dimensiones: DIMENSIONES_DEFAULT,
                   whatsappLink: `https://wa.me/51946552086?text=Hola,%20estoy%20interesado%20en%20el%20lote%20${lote.id.replace('Lote ', '')}`
                 };
                 
@@ -715,20 +728,20 @@ function parsearLoteId(id, archivo = '') {
 // Función para cargar todos los lotes desde los archivos JSON
 function cargarTodosLosLotes() {
   const archivosLotes = [
-    'assets/Coord/lotes_A.json',
-    'assets/Coord/lotes_B.json', 
-    'assets/Coord/lotes_C.json',
-    'assets/Coord/lotes_D.json',
-    'assets/Coord/lotes_D2.json',
-    'assets/Coord/lotes_E.json',
-    'assets/Coord/lotes_E2.json',
-    'assets/Coord/lotes_F.json',
-    'assets/Coord/lotes_F2.json',
-    'assets/Coord/lotes_G.json',
-    'assets/Coord/lotes_G2.json',
-    'assets/Coord/lotes_H.json',
-    'assets/Coord/lotes_I.json',
-    'assets/Coord/lotes_J.json'
+    'Coord/lotes_A.json',
+    'Coord/lotes_B.json', 
+    'Coord/lotes_C.json',
+    'Coord/lotes_D.json',
+    'Coord/lotes_D2.json',
+    'Coord/lotes_E.json',
+    'Coord/lotes_E2.json',
+    'Coord/lotes_F.json',
+    'Coord/lotes_F2.json',
+    'Coord/lotes_G.json',
+    'Coord/lotes_G2.json',
+    'Coord/lotes_H.json',
+    'Coord/lotes_I.json',
+    'Coord/lotes_J.json'
   ];
 
   Promise.all(archivosLotes.map(archivo => 
@@ -754,12 +767,7 @@ function cargarTodosLosLotes() {
           manzana: infoLote.manzana,
           loteNumero: infoLote.lote,
           tipo: 'Residencial',
-          dimensiones: {
-            izquierda: '8.00 ML',
-            derecha: '8.00 ML', 
-            frente: '15.00 ML',
-            fondo: '15.00 ML'
-          },
+          dimensiones: DIMENSIONES_DEFAULT,
           whatsappLink: `https://wa.me/51946552086?text=Hola,%20estoy%20interesado%20en%20el%20lote%20${lote.id.replace('Lote ', '')}`
         };
         todosLosLotes.push(loteCompleto);
@@ -1187,13 +1195,21 @@ function updatePanelInfo(lote) {
   document.getElementById('lote-tipo').textContent = lote.tipo || 'Residencial';
   document.getElementById('lote-area').textContent = area;
   
-  // Dimensiones (usar valores por defecto si no están disponibles)
-  const dimensiones = lote.dimensiones || {
-    izquierda: '8.00 ML',
-    derecha: '8.00 ML', 
-    frente: '15.00 ML',
-    fondo: '15.00 ML'
-  };
+  // Dimensiones - PRIORIZAR datos de API
+  let dimensiones;
+  
+  if (lotInfo && lotInfo.dimensions) {
+    // Usar dimensiones de la API (formato: front, right, left, back)
+    dimensiones = {
+      frente: `${lotInfo.dimensions.front.toFixed(2)} M`,
+      derecha: `${lotInfo.dimensions.right.toFixed(2)} M`,
+      izquierda: `${lotInfo.dimensions.left.toFixed(2)} M`,
+      fondo: `${lotInfo.dimensions.back.toFixed(2)} M`
+    };
+  } else {
+    // Fallback: usar dimensiones del JSON local o valores por defecto
+    dimensiones = lote.dimensiones || DIMENSIONES_DEFAULT;
+  }
   
   document.getElementById('dim-izquierda').textContent = dimensiones.izquierda || '-';
   document.getElementById('dim-derecha').textContent = dimensiones.derecha || '-';
@@ -1308,9 +1324,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const projectSelect = document.getElementById('project-select');
   const sectores = {
-    'etapa-1': { bounds: makeBounds(sectorSizes['etapa-1'].width, sectorSizes['etapa-1'].height), files: ['assets/Coord/lotes_A.json','assets/Coord/lotes_B.json','assets/Coord/lotes_C.json','assets/Coord/lotes_D.json','assets/Coord/lotes_E.json','assets/Coord/lotes_F.json','assets/Coord/lotes_G.json','assets/Coord/lotes_H.json','assets/Coord/lotes_I.json','assets/Coord/lotes_J.json']},
-    'etapa-2': { bounds: makeBounds(sectorSizes['etapa-2'].width, sectorSizes['etapa-2'].height), files: ['assets/Coord/lotes_D2.json','assets/Coord/lotes_E2.json','assets/Coord/lotes_F2.json','assets/Coord/lotes_G2.json'] },
-    'completo': { bounds: makeBounds(sectorSizes['completo'].width, sectorSizes['completo'].height), files: ['assets/Coord/images.json'] }
+    'etapa-1': { bounds: makeBounds(sectorSizes['etapa-1'].width, sectorSizes['etapa-1'].height), files: ['Coord/lotes_A.json','Coord/lotes_B.json','Coord/lotes_C.json','Coord/lotes_D.json','Coord/lotes_E.json','Coord/lotes_F.json','Coord/lotes_G.json','Coord/lotes_H.json','Coord/lotes_I.json','Coord/lotes_J.json']},
+    'etapa-2': { bounds: makeBounds(sectorSizes['etapa-2'].width, sectorSizes['etapa-2'].height), files: ['Coord/lotes_D2.json','Coord/lotes_E2.json','Coord/lotes_F2.json','Coord/lotes_G2.json'] },
+    'completo': { bounds: makeBounds(sectorSizes['completo'].width, sectorSizes['completo'].height), files: ['Coord/images.json'] }
   };
 
   projectSelect.addEventListener('change', function() {
@@ -1323,9 +1339,9 @@ document.addEventListener('DOMContentLoaded', function() {
       map.setMaxBounds(newBounds);
       map.fitBounds(newBounds);
       let imageName;
-      if (selectedSector === 'etapa-2') imageName = 'assets/img/ETAPA 2 img.webp';
-      else if (selectedSector === 'etapa-1') imageName = 'assets/img/ETAPA 1 img.webp';
-      else imageName = 'assets/img/ETAPA GENERAL.webp';
+      if (selectedSector === 'etapa-2') imageName = 'ETAPA 2 img.webp';
+      else if (selectedSector === 'etapa-1') imageName = 'ETAPA 1 img.webp';
+      else imageName = 'ETAPA GENERAL.webp';
       setOverlay(imageName, dims);
       sectores[selectedSector].files.forEach(file => { cargarLotes(file); });
       
@@ -1391,7 +1407,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <button class="mobile-close" aria-label="Cerrar menú" style="align-self:flex-end;background:none;border:none;font-size:1.6rem;">&times;</button>
       <nav class="desktop-nav" role="navigation"></nav>
       <div class="mobile-logo-container">
-        <img src="assets/img/LOGO WEBP NEGRO.webp" alt="Casa Bonita Logo" class="mobile-logo">
+        <img src="LOGO WEBP NEGRO.webp" alt="Casa Bonita Logo" class="mobile-logo">
       </div>
     </div>
   `;
@@ -1462,7 +1478,7 @@ function openImageModal(amenidadId, amenidadNombre) {
   }
   
   // Configurar la imagen y título
-  modalImage.src = `assets/images/${imageName}`;
+  modalImage.src = `images/${imageName}`;
   modalImage.alt = amenidadNombre;
   modalTitle.textContent = amenidadNombre;
   
