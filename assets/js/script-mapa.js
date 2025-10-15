@@ -1198,7 +1198,7 @@ function updatePanelInfo(lote) {
   // Dimensiones - PRIORIZAR datos de API
   let dimensiones;
   
-  if (lotInfo && lotInfo.dimensions) {
+    if (lotInfo && lotInfo.dimensions) {
     // Validar que las dimensiones sean números válidos
     const hasValidDimensions = 
       typeof lotInfo.dimensions.front === 'number' && lotInfo.dimensions.front > 0 &&
@@ -1214,7 +1214,10 @@ function updatePanelInfo(lote) {
         izquierda: `${lotInfo.dimensions.left.toFixed(2)} M`,
         fondo: `${lotInfo.dimensions.back.toFixed(2)} M`
       };
-    } 
+    } else {
+      // Si las dimensiones no son válidas, usar fallback
+      dimensiones = lote.dimensiones || DIMENSIONES_DEFAULT;
+    }
   } else {
     // Fallback: usar dimensiones del JSON local o valores por defecto
     dimensiones = lote.dimensiones || DIMENSIONES_DEFAULT;
