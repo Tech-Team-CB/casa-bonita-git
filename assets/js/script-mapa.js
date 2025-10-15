@@ -1199,13 +1199,22 @@ function updatePanelInfo(lote) {
   let dimensiones;
   
   if (lotInfo && lotInfo.dimensions) {
-    // Usar dimensiones de la API (formato: front, right, left, back)
-    dimensiones = {
-      frente: `${lotInfo.dimensions.front.toFixed(2)} M`,
-      derecha: `${lotInfo.dimensions.right.toFixed(2)} M`,
-      izquierda: `${lotInfo.dimensions.left.toFixed(2)} M`,
-      fondo: `${lotInfo.dimensions.back.toFixed(2)} M`
-    };
+    // Validar que las dimensiones sean números válidos
+    const hasValidDimensions = 
+      typeof lotInfo.dimensions.front === 'number' && lotInfo.dimensions.front > 0 &&
+      typeof lotInfo.dimensions.right === 'number' && lotInfo.dimensions.right > 0 &&
+      typeof lotInfo.dimensions.left === 'number' && lotInfo.dimensions.left > 0 &&
+      typeof lotInfo.dimensions.back === 'number' && lotInfo.dimensions.back > 0;
+    
+    if (hasValidDimensions) {
+      // Usar dimensiones de la API (formato: front, right, left, back)
+      dimensiones = {
+        frente: `${lotInfo.dimensions.front.toFixed(2)} M`,
+        derecha: `${lotInfo.dimensions.right.toFixed(2)} M`,
+        izquierda: `${lotInfo.dimensions.left.toFixed(2)} M`,
+        fondo: `${lotInfo.dimensions.back.toFixed(2)} M`
+      };
+    } 
   } else {
     // Fallback: usar dimensiones del JSON local o valores por defecto
     dimensiones = lote.dimensiones || DIMENSIONES_DEFAULT;
