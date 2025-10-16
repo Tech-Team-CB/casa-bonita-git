@@ -380,7 +380,7 @@ function updateExistingPolygons() {
 
 // Precarga de imágenes para evitar demoras en el renderizado
 const imageCache = {};
-const preloadImages = ['ETAPA GENERAL.webp', 'ETAPA 1 img.webp', 'ETAPA 2 img.webp'];
+const preloadImages = ['assets/img/ETAPA GENERAL.webp', 'assets/img/ETAPA 1 img.webp', 'assets/img/ETAPA 2 img.webp'];
 function preloadImage(src) {
   if (!imageCache[src]) {
     const img = new Image();
@@ -444,21 +444,22 @@ function setOverlay(imageSrc, dims) {
   }
 }
 
-if (imageCache['ETAPA GENERAL.webp']) {
+if (imageCache['assets/img/ETAPA GENERAL.webp']) {
   // Solo aplicar el overlay si el sector actual es 'completo'
   if (currentSector === 'completo') {
-    setOverlay('ETAPA GENERAL.webp', sectorSizes['completo']);
+    setOverlay('assets/img/ETAPA GENERAL.webp', sectorSizes['completo']);
   }
 } else {
   const img = new Image();
   img.onload = () => {
     // Solo aplicar el overlay si el sector actual sigue siendo 'completo'
     if (currentSector === 'completo') {
-      setOverlay('ETAPA GENERAL.webp', sectorSizes['completo']);
+      setOverlay('assets/img/ETAPA GENERAL.webp', sectorSizes['completo']);
     }
   };
-  img.src = 'ETAPA GENERAL.webp';
+  img.src = 'assets/img/ETAPA GENERAL.webp';
 }
+
 
 const polygons = [];
 const canvasRenderer = L.canvas({ padding: 0.5 });
@@ -1353,9 +1354,9 @@ document.addEventListener('DOMContentLoaded', function() {
       map.setMaxBounds(newBounds);
       map.fitBounds(newBounds);
       let imageName;
-      if (selectedSector === 'etapa-2') imageName = 'ETAPA 2 img.webp';
-      else if (selectedSector === 'etapa-1') imageName = 'ETAPA 1 img.webp';
-      else imageName = 'ETAPA GENERAL.webp';
+      if (selectedSector === 'etapa-2') imageName = 'assets/img/ETAPA 2 img.webp';
+      else if (selectedSector === 'etapa-1') imageName = 'assets/img/ETAPA 1 img.webp';
+      else imageName = 'assets/img/ETAPA GENERAL.webp';
       setOverlay(imageName, dims);
       sectores[selectedSector].files.forEach(file => { cargarLotes(file); });
       
@@ -1421,7 +1422,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <button class="mobile-close" aria-label="Cerrar menú" style="align-self:flex-end;background:none;border:none;font-size:1.6rem;">&times;</button>
       <nav class="desktop-nav" role="navigation"></nav>
       <div class="mobile-logo-container">
-        <img src="LOGO WEBP NEGRO.webp" alt="Casa Bonita Logo" class="mobile-logo">
+        <img src="assets/img/LOGO WEBP NEGRO.webp" alt="Casa Bonita Logo" class="mobile-logo">
       </div>
     </div>
   `;
