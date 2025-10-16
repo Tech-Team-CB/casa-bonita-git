@@ -725,23 +725,24 @@ function parsearLoteId(id, archivo = '') {
   };
 }
 
+
 // Función para cargar todos los lotes desde los archivos JSON
 function cargarTodosLosLotes() {
   const archivosLotes = [
-    'Coord/lotes_A.json',
-    'Coord/lotes_B.json', 
-    'Coord/lotes_C.json',
-    'Coord/lotes_D.json',
-    'Coord/lotes_D2.json',
-    'Coord/lotes_E.json',
-    'Coord/lotes_E2.json',
-    'Coord/lotes_F.json',
-    'Coord/lotes_F2.json',
-    'Coord/lotes_G.json',
-    'Coord/lotes_G2.json',
-    'Coord/lotes_H.json',
-    'Coord/lotes_I.json',
-    'Coord/lotes_J.json'
+    'assets/Coord/lotes_A.json',
+    'assets/Coord/lotes_B.json', 
+    'assets/Coord/lotes_C.json',
+    'assets/Coord/lotes_D.json',
+    'assets/Coord/lotes_D2.json',
+    'assets/Coord/lotes_E.json',
+    'assets/Coord/lotes_E2.json',
+    'assets/Coord/lotes_F.json',
+    'assets/Coord/lotes_F2.json',
+    'assets/Coord/lotes_G.json',
+    'assets/Coord/lotes_G2.json',
+    'assets/Coord/lotes_H.json',
+    'assets/Coord/lotes_I.json',
+    'assets/Coord/lotes_J.json'
   ];
 
   Promise.all(archivosLotes.map(archivo => 
@@ -1336,10 +1337,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const projectSelect = document.getElementById('project-select');
   const sectores = {
-    'etapa-1': { bounds: makeBounds(sectorSizes['etapa-1'].width, sectorSizes['etapa-1'].height), files: ['Coord/lotes_A.json','Coord/lotes_B.json','Coord/lotes_C.json','Coord/lotes_D.json','Coord/lotes_E.json','Coord/lotes_F.json','Coord/lotes_G.json','Coord/lotes_H.json','Coord/lotes_I.json','Coord/lotes_J.json']},
-    'etapa-2': { bounds: makeBounds(sectorSizes['etapa-2'].width, sectorSizes['etapa-2'].height), files: ['Coord/lotes_D2.json','Coord/lotes_E2.json','Coord/lotes_F2.json','Coord/lotes_G2.json'] },
-    'completo': { bounds: makeBounds(sectorSizes['completo'].width, sectorSizes['completo'].height), files: ['Coord/images.json'] }
+    'etapa-1': { bounds: makeBounds(sectorSizes['etapa-1'].width, sectorSizes['etapa-1'].height), files: ['assets/Coord/lotes_A.json','assets/Coord/lotes_B.json','assets/Coord/lotes_C.json','assets/Coord/lotes_D.json','assets/Coord/lotes_E.json','assets/Coord/lotes_F.json','assets/Coord/lotes_G.json','assets/Coord/lotes_H.json','assets/Coord/lotes_I.json','assets/Coord/lotes_J.json']},
+    'etapa-2': { bounds: makeBounds(sectorSizes['etapa-2'].width, sectorSizes['etapa-2'].height), files: ['assets/Coord/lotes_D2.json','assets/Coord/lotes_E2.json','assets/Coord/lotes_F2.json','assets/Coord/lotes_G2.json'] },
+    'completo': { bounds: makeBounds(sectorSizes['completo'].width, sectorSizes['completo'].height), files: ['assets/Coord/images.json'] }
   };
+
 
   projectSelect.addEventListener('change', function() {
     const selectedSector = this.value;
@@ -1490,9 +1492,10 @@ function openImageModal(amenidadId, amenidadNombre) {
   }
   
   // Configurar la imagen y título
-  modalImage.src = `images/${imageName}`;
+  modalImage.src = `assets/images/${imageName}`;
   modalImage.alt = amenidadNombre;
   modalTitle.textContent = amenidadNombre;
+  
   
   // Mostrar el modal y bloquear scroll
   modal.classList.add('show');
