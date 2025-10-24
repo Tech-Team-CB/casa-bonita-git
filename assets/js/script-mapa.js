@@ -383,6 +383,13 @@ const map = L.map('map', {
 map.fitBounds(bounds);
 map.scrollWheelZoom.enable();
 
+// Forzar recalculo del mapa después de que todo esté listo
+// Esto soluciona el problema de que el mapa aparezca descentrado al cargar
+setTimeout(() => {
+  map.invalidateSize();
+  map.fitBounds(bounds);
+}, 100);
+
 const overlayCache = {};
 let currentOverlay = null;
 function setOverlay(imageSrc, dims) {
@@ -1495,6 +1502,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
+  // Asegurar que el mapa esté bien centrado después de que todo cargue
+  setTimeout(() => {
+    map.invalidateSize();
+    map.fitBounds(bounds);
+  }, 250);
+  
   // Inicializar API al cargar la página
   initializeAPI();
+});
+
+// También ajustar el mapa cuando la ventana termine de cargar completamente
+window.addEventListener('load', function() {
+  setTimeout(() => {
+    map.invalidateSize();
+    map.fitBounds(bounds);
+  }, 100);
 });
