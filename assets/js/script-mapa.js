@@ -220,16 +220,6 @@ function getStatusColor(status) {
 // Inicializar API al cargar la página
 async function initializeAPI() {
   
-  // Mostrar indicador de carga (opcional)
-  const loadingIndicator = document.createElement('div');
-  loadingIndicator.id = 'api-loading';
-  loadingIndicator.innerHTML = `
-    <div style="position: fixed; top: 20px; right: 20px; background: #007bff; color: white; padding: 10px 15px; border-radius: 5px; z-index: 1000; font-size: 14px;">
-      <span>🔄 Conectando con API...</span>
-    </div>
-  `;
-  document.body.appendChild(loadingIndicator);
-  
   try {
     // Obtener token inicial si no existe
     await initializeToken();
@@ -241,36 +231,8 @@ async function initializeAPI() {
       updateExistingPolygons();
     }, 2000); // Esperar 2 segundos
     
-    // Mostrar mensaje de éxito
-    loadingIndicator.innerHTML = `
-      <div style="position: fixed; top: 20px; right: 20px; background: #28a745; color: white; padding: 10px 15px; border-radius: 5px; z-index: 1000; font-size: 14px;">
-        <span>✅ API conectada (${Object.keys(unitsData).length} lotes)</span>
-      </div>
-    `;
-    
-    // Ocultar indicador después de 3 segundos
-    setTimeout(() => {
-      if (loadingIndicator.parentNode) {
-        loadingIndicator.remove();
-      }
-    }, 3000);
-    
   } catch (error) {
     console.error('Error inicializando modo offline:', error);
-    
-    // Mostrar mensaje de error
-    loadingIndicator.innerHTML = `
-      <div style="position: fixed; top: 20px; right: 20px; background: #dc3545; color: white; padding: 10px 15px; border-radius: 5px; z-index: 1000; font-size: 14px;">
-        <span>⚠️ Error - usando datos locales únicamente</span>
-      </div>
-    `;
-    
-    // Ocultar indicador después de 5 segundos
-    setTimeout(() => {
-      if (loadingIndicator.parentNode) {
-        loadingIndicator.remove();
-      }
-    }, 5000);
   }
 }
 
