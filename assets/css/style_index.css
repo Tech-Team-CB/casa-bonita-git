@@ -1283,35 +1283,6 @@ section {
     display: none !important;
 }
 
-/* Model viewer optimizado */
-model-viewer {
-    --progress-bar-color: var(--primary-color);
-    --progress-bar-height: 4px;
-    --poster-color: transparent;
-    --progress-mask: transparent;
-    width: 100%;
-    height: 100%;
-    min-height: 400px;
-    background: transparent;
-    overflow: hidden;
-    position: relative;
-    z-index: 1;
-    --camera-orbit: 45deg 60% 100%;
-    --field-of-view: 40deg;
-    --max-camera-orbit: auto 80deg auto;
-    --min-camera-orbit: auto 20deg auto;
-    border-radius: 16px;
-}
-
-/* === Overrides para reemplazo del modelo 3D por mapa embebido === */
-/* Ocultar cualquier model-viewer restante */
-.model-container {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    visibility: hidden !important;
-}
-
 /* Nuevo contenedor para el iframe del mapa */
 .map-container {
     width: 100%;
