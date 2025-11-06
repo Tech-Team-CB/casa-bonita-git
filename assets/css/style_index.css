@@ -1304,26 +1304,6 @@ section {
     }
 }
 
-/* Poster y loading mejorados */
-.model-poster {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    border-radius: 16px;
-}
-
-.loading-container {
-    text-align: center;
-    padding: 2rem;
-}
-
 
 .loading-text {
     color: #495057;
@@ -1412,9 +1392,6 @@ section {
         gap: 0.375rem;
     }
 
-    .loading-container {
-        padding: 1.5rem;
-    }
     .loading-text {
         font-size: 1rem;
     }
