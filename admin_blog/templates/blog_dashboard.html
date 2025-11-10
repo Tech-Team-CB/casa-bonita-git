@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Blogs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background-color: #1a1a1a;
+            border-bottom: 1px solid #333;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            margin: 0;
+        }
+
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333;
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Panel principal */
+        .main-panel {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .panel-header {
+            background-color: #2c2c2c;
+            color: #ffffff;
+            padding: 18px 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #3d3d3d;
+        }
+
+        /* Tabla de blogs */
+        .blogs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .blogs-table th,
+        .blogs-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .blogs-table th {
+            background-color: #f8f8f8;
+            font-weight: 600;
+            color: #2c2c2c;
+            border-bottom: 2px solid #e0e0e0;
+            padding: 15px 20px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .blogs-table tr {
+            transition: background-color 0.2s ease;
+        }
+
+        .blogs-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .blogs-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Botones de acción */
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: 1px solid #333;
+            background-color: #fff;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .btn-edit {
+            background-color: #2196F3;
+            border: 1px solid #2196F3;
+            color: white;
+            transition: all 0.2s ease;
+        }
+
+        .btn-edit:hover {
+            background-color: #1976D2;
+            border-color: #1976D2;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-delete {
+            background-color: #f44336;
+            border: 1px solid #f44336;
+            color: white;
+            transition: all 0.2s ease;
+        }
+
+        .btn-delete:hover {
+            background-color: #d32f2f;
+            border-color: #d32f2f;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Botón flotante */
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #2c2c2c;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-btn:hover {
+            background-color: #333;
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            padding: 0;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 76rem;
+            max-height: 95vh;
+            overflow-y: auto;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            animation: modalAppear 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            background-color: #2c2c2c;
+            color: #fff;
+            padding: 22px 25px;
+            border-radius: 8px 8px 0 0;
+            border-bottom: 1px solid #3d3d3d;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #333;
+        }
+
+        .form-group input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .form-group input[type="file"]:hover {
+            border-color: #999;
+        }
+
+        .form-group input[type="file"]::file-selector-button {
+            padding: 6px 12px;
+            margin-right: 12px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input[type="file"]::file-selector-button:hover {
+            background-color: #e9e9e9;
+            border-color: #999;
+        }
+
+        .form-group textarea {
+            height: 80px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        /* Estilos para el contenedor de categorías */
+        .category-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .category-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            background-color: #fff;
+            transition: border-color 0.2s ease;
+        }
+
+        .category-select:focus {
+            outline: none;
+            border-color: #333;
+        }
+
+        .category-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .category-input:focus {
+            outline: none;
+            border-color: #333;
+        }
+
+        .category-input.show {
+            display: block !important;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-footer {
+            padding: 15px 20px 20px;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .btn-primary {
+            background-color: #2c2c2c;
+            color: #fff;
+            border: 1px solid #2c2c2c;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #1a1a1a;
+            border-color: #1a1a1a;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary {
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e8e8e8;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Estado vacío */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .empty-state p {
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 10px;
+            }
+
+            .blogs-table {
+                font-size: 0.9rem;
+            }
+
+            .blogs-table th,
+            .blogs-table td {
+                padding: 10px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .modal-content {
+                margin: 20px;
+                width: calc(100% - 40px);
+            }
+
+            .floating-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Estilos para la columna popular */
+        .popular-column {
+            text-align: center;
+            width: 100px;
+        }
+
+        .popular-checkbox {
+            transform: scale(1.2);
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .popular-status {
+            font-size: 1.2em;
+            margin-left: 5px;
+            color: #ffc107;
+        }
+
+        .blogs-table td:nth-child(4) {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* Tooltip para checkbox */
+        .popular-checkbox:hover {
+            transform: scale(1.3);
+            transition: transform 0.2s ease;
+        }
+
+        /* Estilos mejorados para botones de acción */
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-action {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 70px;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-action::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-action:hover::before {
+            left: 100%;
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-edit:hover {
+            background: linear-gradient(135deg, #45a049, #3d8b40);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-edit:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+            box-shadow: 0 2px 4px rgba(244, 67, 54, 0.3);
+        }
+
+        .btn-delete:hover {
+            background: linear-gradient(135deg, #d32f2f, #c62828);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(244, 67, 54, 0.4);
+        }
+
+        .btn-delete:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(244, 67, 54, 0.3);
+        }
+
+        /* Iconos para los botones */
+        .btn-icon {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        /* Animación de loading */
+        .loading-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Estado disabled para botones */
+        .btn-action:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-action:disabled:hover {
+            transform: none !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        /* Responsive para botones */
+        @media (max-width: 768px) {
+            .action-buttons {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .btn-action {
+                font-size: 11px;
+                padding: 6px 12px;
+                min-width: 60px;
+            }
+        }
+
+        /* Estilos para la paginación del dashboard */
+        .dashboard-pagination {
+            padding: 20px 25px;
+            border-top: 1px solid #eee;
+            background-color: #fafafa;
+        }
+
+        .pagination-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .pagination-info {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .pagination-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .pagination-btn {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            color: #333;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            min-width: 40px;
+        }
+
+        .pagination-btn:hover {
+            background-color: #f5f5f5;
+            border-color: #999;
+        }
+
+        .pagination-btn.active {
+            background-color: #2c2c2c;
+            color: #fff;
+            border-color: #2c2c2c;
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .pagination-controls {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .pagination-buttons {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>Panel de Blogs</h1>
+        <a href="logout" class="logout-btn">Cerrar Sesión</a>
+    </header>
+
+    <!-- Container principal -->
+    <div class="container">
+        <div class="main-panel">
+            <div class="panel-header">
+                Gestión de Blogs
+            </div>
+            
+            <!-- Tabla de blogs -->
+            <table class="blogs-table">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Categoría</th>
+                        <th>Fecha</th>
+                        <th>Popular</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="blogsTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Botón flotante -->
+    <button class="floating-btn" onclick="openModal()">+</button>
+
+    <!-- Modal -->
+    <div class="modal" id="blogModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Nuevo Blog</h2>
+            </div>
+            <div class="modal-body">
+                <form >
+                    <div class="form-group">
+                        <label for="blogTitle">Título</label>
+                        <input type="text" id="blogTitle" placeholder="Ingresa el título del blog">
+                    </div>
+                    <div class="form-group">
+                        <label for="blogResume">Resumen</label>
+                        <textarea id="blogResume" placeholder="Ingresa un resumen del blog"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="blogContent">Contenido</label>
+                        <textarea id="blogContent" placeholder="Escribe el contenido del blog..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="blogCategory">Categoría</label>
+                        <div class="category-container">
+                            <select id="categorySelect" class="category-select">
+                                <option value="">-- Seleccionar categoría existente --</option>
+                                <option value="nueva">+ Escribir nueva categoría</option>
+                            </select>
+                            <input type="text" id="blogCategory" class="category-input" placeholder="Escribir nueva categoría" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="blogImage">Imagen</label>
+                        <input type="file" id="blogImage" accept="image/*" class="file-input">
+                        <div id="imagePreview" style="margin-top: 10px; display: none;">
+                            <img id="previewImage" src="#" alt="Vista previa" style="max-width: 100%; max-height: 200px; margin-top: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="blogDate">Fecha</label>
+                        <input type="date" id="blogDate">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveBlog()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+ <!-- Place the first <script> tag in your HTML's <head> -->
+<script src="https://cdn.tiny.cloud/1/vui3ywtubf1c282hru66fj0cue208r24h813o0ra0792mmzm/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+
+<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+<script>
+
+
+  tinymce.init({
+  selector: '#blogContent',
+  plugins: [
+    // Core editing features (gratis)
+    'anchor', 'autolink', 'charmap', 'codesample', 'emoticons',
+    'link', 'lists', 'media', 'searchreplace', 'table',
+    'visualblocks', 'wordcount', 'preview', 'fullscreen', 'help'
+  ],
+  toolbar: 'undo redo | blocks fontfamily fontsize | ' +
+           'bold italic underline strikethrough | link image media table | ' +
+           'align lineheight | numlist bullist outdent indent | ' +
+           'emoticons charmap | code preview fullscreen | removeformat | help',
+});
+
+</script>
+
+<script src="/admin_blog/static/js/script.js"></script>
+</body>
+</html>

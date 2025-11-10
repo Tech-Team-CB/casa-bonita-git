@@ -1,0 +1,37 @@
+RewriteEngine On
+
+# Permitir acceso directo a archivos estáticos
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^(static/.*|templates/.*)$ - [L]
+
+# Redirigir todo lo demás al index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Configurar tipos MIME para archivos estáticos
+<Files "*.webp">
+    Header set Content-Type "image/webp"
+</Files>
+
+<Files "*.js">
+    Header set Content-Type "application/javascript"
+</Files>
+
+<Files "*.css">
+    Header set Content-Type "text/css"
+</Files>
+
+# Headers de seguridad
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+
+# CORS headers para API
+<IfModule mod_headers.c>
+    SetEnvIf Origin "^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$" CORS_ALLOW_ORIGIN=$0
+    Header always set Access-Control-Allow-Origin %{CORS_ALLOW_ORIGIN}e env=CORS_ALLOW_ORIGIN
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+    Header always set Access-Control-Allow-Credentials "true"
+</IfModule>
