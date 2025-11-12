@@ -112,7 +112,7 @@
         {% if mensaje %}
         <div style="color: red; margin-bottom: 1rem;">{{ mensaje }}</div>
         {% endif %}
-        <form action="{{ url_for('login') }}" method="POST">
+        <form action="acceso_login" method="POST">
             <div class="form-group">
                 <label for="username">Usuario</label>
                 <input type="text" id="username" required name="txtCorreo">
