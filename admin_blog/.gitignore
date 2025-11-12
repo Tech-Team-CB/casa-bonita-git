@@ -17,6 +17,10 @@ env/
 ENV/
 .venv/
 
+# Uploads - Imágenes de usuarios
+static/uploads/*
+!static/uploads/.gitkeep
+
 # IDE
 .vscode/
 .idea/
