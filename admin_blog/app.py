@@ -71,6 +71,10 @@ def close_db(exception=None):
 def home():
     return render_template('login.html')
 
+@app.route('/test-admin')
+def test_admin():
+    return {'status': 'ok', 'message': 'Admin route is working!'}
+
 
 @app.route('/blog_dashboard')
 def blog_dashboard():
