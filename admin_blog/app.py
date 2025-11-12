@@ -6,12 +6,19 @@ import os
 import uuid
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 # Cargar variables de entorno desde archivo .env
 load_dotenv()
 
 app = Flask(__name__, template_folder='templates')
 app.secret_key = os.getenv('SECRET_KEY', 'CasaBonita_Blog_Important')
+
+# Configurar Flask para conocer el prefijo /admin_blog
+app.config['APPLICATION_ROOT'] = '/admin_blog'
+app.config['SESSION_COOKIE_PATH'] = '/admin_blog'  # cookies válidas solo bajo el prefijo
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1, x_port=1, x_prefix=1)
+
 # Habilitar CORS en todas las rutas API (permitir peticiones desde el frontend estático)
 CORS(app)
 
