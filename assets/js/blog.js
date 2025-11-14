@@ -103,11 +103,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const formattedDate = formatDate(blog.fecha);
         
         // Usar URL de imagen (ya sea de Cloudinary o local)
-        const imageUrl = blog.imagen || 'https://via.placeholder.com/400x250?text=Sin+Imagen';
+        const imageUrl = blog.imagen || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';
 
         article.innerHTML = `
             <div class="blog-image-container">
-                <img src="${imageUrl}" alt="${blog.titulo}" class="blog-image" loading="lazy" onerror="this.src='https://via.placeholder.com/400x250?text=Sin+Imagen'">
+                <img src="${imageUrl}" alt="${blog.titulo}" class="blog-image" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'">
             </div>
             <div class="blog-content">
                 <div class="blog-category">${blog.categoria || 'General'}</div>

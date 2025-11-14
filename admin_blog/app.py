@@ -244,7 +244,7 @@ def api_update_blog(id):
 
     conn = get_db()
     if conn is None:
-        return {'ok': False, 'error': 'no DB connection'}
+            return {'ok': False, 'error': 'no DB connection'}
 
     try:
         with conn.cursor() as cur:
@@ -492,7 +492,7 @@ def api_get_categorias():
 
     try:
         with conn.cursor() as cur:
-            cur.execute('SELECT DISTINCT categoria FROM blog WHERE categoria IS NOT NULL AND categoria != "" ORDER BY categoria')
+            cur.execute("SELECT DISTINCT categoria FROM blog WHERE categoria IS NOT NULL AND LENGTH(categoria) > 0 ORDER BY categoria")
             categorias = cur.fetchall()
             # Convertir a lista simple
             categorias_lista = [cat['categoria'] for cat in categorias]
