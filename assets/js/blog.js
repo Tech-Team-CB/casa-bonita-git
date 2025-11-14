@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // URL base de la API - Detecta automáticamente el entorno
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     const API_BASE_URL = isLocal 
-        ? 'http://localhost:5000'  // Desarrollo local con prefijo
-        : 'https://casa-bonita-git.onrender.com';  // Producción Render
+        ? 'http://localhost:5000'  // Desarrollo local
+        : 'https://api-blog-casabonita.onrender.com';  // Producción - Nuevo repo API
     
     console.log('Entorno:', isLocal ? 'Local' : 'Producción');
     console.log('API_BASE_URL:', API_BASE_URL);
