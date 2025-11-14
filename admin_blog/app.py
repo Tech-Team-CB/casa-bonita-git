@@ -6,12 +6,22 @@ import os
 import uuid
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
+import cloudinary
+import cloudinary.uploader
 
 # Cargar variables de entorno desde archivo .env
 load_dotenv()
 
 app = Flask(__name__, template_folder='templates')
 app.secret_key = os.getenv('SECRET_KEY', 'CasaBonita_Blog_Important')
+
+# Configurar Cloudinary para almacenamiento de imágenes
+cloudinary.config(
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.getenv('CLOUDINARY_API_KEY'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET'),
+    secure=True
+)
 
 # Habilitar CORS en todas las rutas API (permitir peticiones desde el frontend estático)
 CORS(app)
@@ -43,11 +53,19 @@ def save_image(file_storage):
         return None
     if not allowed_file(file_storage.filename):
         return None
-    filename = secure_filename(file_storage.filename)
-    unique_name = f"{uuid.uuid4().hex}_{filename}"
-    save_path = os.path.join(app.config['UPLOAD_FOLDER'], unique_name)
-    file_storage.save(save_path)
-    return f"/static/uploads/{unique_name}"
+    
+    try:
+        # Subir imagen a Cloudinary
+        result = cloudinary.uploader.upload(
+            file_storage,
+            folder="casabonita_blogs",
+            resource_type="auto"
+        )
+        # Retornar URL completa de Cloudinary
+        return result['secure_url']
+    except Exception as e:
+        print(f"Error uploading to Cloudinary: {e}")
+        return None
 
 def get_db():
     if 'db' not in g:
