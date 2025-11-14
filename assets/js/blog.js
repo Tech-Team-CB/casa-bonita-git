@@ -20,9 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
         ? 'http://localhost:5000'  // Desarrollo local
         : 'https://api-blog-casabonita.onrender.com';  // Producción - Nuevo repo API
     
-    console.log('Entorno:', isLocal ? 'Local' : 'Producción');
-    console.log('API_BASE_URL:', API_BASE_URL);
-    
     // Filtros activos
     let activeFilters = {
         category: 'all',
