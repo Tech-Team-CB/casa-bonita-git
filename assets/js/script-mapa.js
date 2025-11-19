@@ -340,18 +340,6 @@ function updateExistingPolygons() {
   }
 }
 
-// Precarga de imágenes para evitar demoras en el renderizado
-const imageCache = {};
-const preloadImages = ['assets/img/ETAPA GENERAL.webp', 'assets/img/ETAPA 1 img.webp', 'assets/img/ETAPA 2 img.webp'];
-function preloadImage(src) {
-  if (!imageCache[src]) {
-    const img = new Image();
-    img.onload = () => { imageCache[src] = true; };
-    img.src = src;
-  }
-}
-preloadImages.forEach(preloadImage);
-
 const sectorSizes = {
   'etapa-1': { width: 2300, height: 3898 },
   'etapa-2': { width: 2000, height: 5457 },
@@ -413,22 +401,10 @@ function setOverlay(imageSrc, dims) {
   }
 }
 
-if (imageCache['assets/img/ETAPA GENERAL.webp']) {
-  // Solo aplicar el overlay si el sector actual es 'completo'
-  if (currentSector === 'completo') {
-    setOverlay('assets/img/ETAPA GENERAL.webp', sectorSizes['completo']);
-  }
-} else {
-  const img = new Image();
-  img.onload = () => {
-    // Solo aplicar el overlay si el sector actual sigue siendo 'completo'
-    if (currentSector === 'completo') {
-      setOverlay('assets/img/ETAPA GENERAL.webp', sectorSizes['completo']);
-    }
-  };
-  img.src = 'assets/img/ETAPA GENERAL.webp';
+// Aplicar overlay inicial para vista completa
+if (currentSector === 'completo') {
+  setOverlay('https://res.cloudinary.com/dokkvnbeg/image/upload/f_auto,q_auto/v1763587198/ETAPA_GENERAL_emywti.webp', sectorSizes['completo']);
 }
-
 
 const polygons = [];
 const canvasRenderer = L.canvas({ padding: 0.5 });
@@ -1323,9 +1299,9 @@ document.addEventListener('DOMContentLoaded', function() {
       map.setMaxBounds(newBounds);
       map.fitBounds(newBounds);
       let imageName;
-      if (selectedSector === 'etapa-2') imageName = 'assets/img/ETAPA 2 img.webp';
-      else if (selectedSector === 'etapa-1') imageName = 'assets/img/ETAPA 1 img.webp';
-      else imageName = 'assets/img/ETAPA GENERAL.webp';
+      if (selectedSector === 'etapa-2') imageName = 'https://res.cloudinary.com/dokkvnbeg/image/upload/v1763587222/ETAPA_2_img_yb1vvh.webp';
+      else if (selectedSector === 'etapa-1') imageName = 'https://res.cloudinary.com/dokkvnbeg/image/upload/v1763587219/ETAPA_1_img_duwg2h.webp';
+      else imageName = 'https://res.cloudinary.com/dokkvnbeg/image/upload/v1763587198/ETAPA_GENERAL_emywti.webp';
       setOverlay(imageName, dims);
       sectores[selectedSector].files.forEach(file => { cargarLotes(file); });
       
