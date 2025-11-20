@@ -380,6 +380,8 @@ setTimeout(() => {
 
 const overlayCache = {};
 let currentOverlay = null;
+const lotesCache = new Map(); // Cache para datos JSON
+
 function setOverlay(imageSrc, dims) {
   if (currentOverlay) {
     try { map.removeLayer(currentOverlay); } catch (e) { }
@@ -408,6 +410,7 @@ if (currentSector === 'completo') {
 
 const polygons = [];
 const canvasRenderer = L.canvas({ padding: 0.5 });
+let currentLoadingAbort = null;
 
 function getSqDist(p1, p2) {
   const dx = p1[0] - p2[0];
@@ -451,32 +454,46 @@ function simplify(points, tolerance) {
 }
 
 function cargarLotes(archivo) {
-  fetch(archivo)
+  // Verificar cache primero
+  if (lotesCache.has(archivo)) {
+    const cachedLotes = lotesCache.get(archivo);
+    procesarLotesCargados(cachedLotes, archivo);
+    return Promise.resolve();
+  }
+  
+  // Cargar desde servidor
+  return fetch(archivo)
     .then(res => res.json())
-    .then(lotes => 
-    {
+    .then(lotes => {
+      lotesCache.set(archivo, lotes); // Guardar en cache
+      procesarLotesCargados(lotes, archivo);
+    });
+}
 
-      const batchSize = 50;
-      let currentBatch = 0;
+function procesarLotesCargados(lotes, archivo) {
+  const batchSize = 50;
+  let currentBatch = 0;
+  const isAmenidades = archivo.includes('images.json');
+  const abortController = { abort: false };
+  currentLoadingAbort = abortController;
+  
+  function processBatch() {
+    if (abortController.abort) return;
+    
+    const start = currentBatch * batchSize;
+    const end = Math.min(start + batchSize, lotes.length);
+    for (let i = start; i < end; i++) {
+      const lote = lotes[i];
       
-      // Verificar si estamos cargando amenidades (images.json)
-      const isAmenidades = archivo.includes('images.json');
+      let colors, popupContent, clickHandler;
       
-      function processBatch() {
-        const start = currentBatch * batchSize;
-        const end = Math.min(start + batchSize, lotes.length);
-        for (let i = start; i < end; i++) {
-          const lote = lotes[i];
-          
-          let colors, popupContent, clickHandler;
-          
-          if (isAmenidades) {
-            // Configuración para amenidades
-            colors = {
-              fillColor: "#f3eac6d2", // Verde claro para amenidades
-              color: "#d7d7d775"
-            };
-            popupContent = `<b>${lote.nombre}</b><br>Tipo: ${lote.tipo}<br>Click para ver imagen`;
+      if (isAmenidades) {
+        // Configuración para amenidades
+        colors = {
+          fillColor: "#f3eac6d2", // Verde claro para amenidades
+          color: "#d7d7d775"
+        };
+        popupContent = `<b>${lote.nombre}</b><br>Tipo: ${lote.tipo}<br>Click para ver imagen`;
             
             // Función para abrir modal al hacer click
             clickHandler = function(e) {
@@ -623,16 +640,15 @@ function cargarLotes(archivo) {
             originalStyle,
             isAmenidad: isAmenidades,  // Marcar si es amenidad para evitar popups
             archivo: archivo  // Añadir información del archivo para distinguir etapas
-          });
-        }
-        currentBatch++;
-        if (currentBatch * batchSize < lotes.length) requestAnimationFrame(processBatch);
-      }
-      processBatch();
-    });
-}
-
-// Variable global para almacenar todos los lotes cargados
+      });
+    }
+    currentBatch++;
+    if (currentBatch * batchSize < lotes.length && !abortController.abort) {
+      requestAnimationFrame(processBatch);
+    }
+  }
+  processBatch();
+}// Variable global para almacenar todos los lotes cargados
 let todosLosLotes = [];
 
 // Función para extraer información de la manzana y lote del ID
@@ -1288,25 +1304,60 @@ document.addEventListener('DOMContentLoaded', function() {
     'completo': { bounds: makeBounds(sectorSizes['completo'].width, sectorSizes['completo'].height), files: ['assets/Coord/images.json'] }
   };
 
+  let isChangingSector = false;
+  let loadingOverlay = null;
 
-  projectSelect.addEventListener('change', function() {
+  projectSelect.addEventListener('change', async function() {
     const selectedSector = this.value;
     if (selectedSector && sectores[selectedSector]) {
+      if (isChangingSector) return;
+      isChangingSector = true;
+      
+      // Crear overlay de carga
+      if (!loadingOverlay) {
+        loadingOverlay = document.createElement('div');
+        loadingOverlay.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:#1a1a1a;z-index:1000;display:flex;align-items:center;justify-content:center;color:white;font-size:18px;';
+        loadingOverlay.textContent = 'Cargando...';
+        document.getElementById('map').appendChild(loadingOverlay);
+      }
+      loadingOverlay.style.display = 'flex';
+      
+      // Deshabilitar botones
+      const stageButtons = document.querySelectorAll('.stage-btn');
+      stageButtons.forEach(btn => btn.disabled = true);
+      projectSelect.disabled = true;
+      
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
       currentSector = selectedSector;
       const dims = sectorSizes[selectedSector] || sectorSizes['completo'];
       const newBounds = makeBounds(dims.width, dims.height);
-      if (polygons.length > 0) { polygons.forEach(pol => { if (pol.poly) map.removeLayer(pol.poly); }); polygons.length = 0; }
+      
+      // Limpiar polígonos
+      if (currentLoadingAbort) currentLoadingAbort.abort = true;
+      polygons.forEach(pol => { try { if (pol.poly) map.removeLayer(pol.poly); } catch (e) {} });
+      polygons.length = 0;
+      
       map.setMaxBounds(newBounds);
       map.fitBounds(newBounds);
+      
       let imageName;
       if (selectedSector === 'etapa-2') imageName = 'https://res.cloudinary.com/dokkvnbeg/image/upload/v1763587222/ETAPA_2_img_yb1vvh.webp';
       else if (selectedSector === 'etapa-1') imageName = 'https://res.cloudinary.com/dokkvnbeg/image/upload/v1763587219/ETAPA_1_img_duwg2h.webp';
       else imageName = 'https://res.cloudinary.com/dokkvnbeg/image/upload/v1763587198/ETAPA_GENERAL_emywti.webp';
-      setOverlay(imageName, dims);
-      sectores[selectedSector].files.forEach(file => { cargarLotes(file); });
       
-      // Actualizar resultados de búsqueda cuando se cambie de etapa
+      setOverlay(imageName, dims);
+      
+      const loadPromises = sectores[selectedSector].files.map(file => cargarLotes(file));
+      await Promise.all(loadPromises);
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
       filterAndRenderLotes();
+      
+      loadingOverlay.style.display = 'none';
+      stageButtons.forEach(btn => btn.disabled = false);
+      projectSelect.disabled = false;
+      isChangingSector = false;
     } else if (selectedSector === '') {
       map.fitBounds(bounds);
     }
@@ -1389,7 +1440,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const select = document.getElementById('project-select');
   const buttons = document.querySelectorAll('.stage-btn');
   function updateButtonsFromSelect() { buttons.forEach(btn => { const v = btn.dataset.value; const pressed = (select.value === v); btn.setAttribute('aria-pressed', String(pressed)); }); }
-  buttons.forEach(btn => { btn.addEventListener('click', () => { const v = btn.dataset.value; if (select.value === v) return; select.value = v; select.dispatchEvent(new Event('change')); updateButtonsFromSelect(); }); });
+  buttons.forEach(btn => { btn.addEventListener('click', () => { const v = btn.dataset.value; if (select.value === v || select.disabled) return; select.value = v; select.dispatchEvent(new Event('change')); updateButtonsFromSelect(); }); });
   select.addEventListener('change', updateButtonsFromSelect);
   updateButtonsFromSelect();
 });
