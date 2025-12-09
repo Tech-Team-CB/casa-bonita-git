@@ -315,7 +315,7 @@
     const articleId = params.get("id");
 
     // Asegúrate de que el fetch apunte al backend (Flask) en el puerto donde corre (por defecto 5000).
-    const API_BASE = 'https://casabonita.pe/admin_blog';
+    const API_BASE = 'https://api-blog-casabonita.onrender.com';
 
     if (!articleId) {
       console.error('No se especificó id de artículo en la query string');
