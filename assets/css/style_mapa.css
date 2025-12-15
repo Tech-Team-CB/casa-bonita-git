@@ -891,8 +891,12 @@ section.project-header {
 }
 
 .panel-footer { 
-  padding: 20px 25px; 
+  padding: 20px 25px;   
   margin-top: auto; 
+}
+
+.panel-footer a:hover {
+ color: var(--available-text);
 }
 
 .whatsapp-button { 
