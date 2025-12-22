@@ -1032,3 +1032,41 @@ document.addEventListener('DOMContentLoaded', function () {
         const showcaseImage = document.querySelector('.showcase-image');
     });
 });
+
+// Notificación flotante IA
+function initFloatingNotice() {
+    const trigger = document.getElementById('noticeTrigger');
+    const card = document.getElementById('noticeCard');
+    const closeBtn = document.querySelector('.notice-close');
+
+    if (!trigger || !card) return;
+
+    const hideCard = () => {
+        card.classList.remove('show');
+        trigger.setAttribute('aria-expanded', 'false');
+    };
+
+    const showCard = () => {
+        card.classList.add('show');
+        trigger.setAttribute('aria-expanded', 'true');
+    };
+
+    trigger.addEventListener('click', () => {
+        const isOpen = card.classList.contains('show');
+        isOpen ? hideCard() : showCard();
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', hideCard);
+    }
+
+    document.addEventListener('click', (e) => {
+        const pill = document.getElementById('noticePill');
+        if (!pill) return;
+        if (!pill.contains(e.target) && card.classList.contains('show')) {
+            hideCard();
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initFloatingNotice);
