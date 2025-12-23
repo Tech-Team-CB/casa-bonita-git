@@ -850,46 +850,6 @@ section.project-header {
   font-weight: 600; 
 }
 
-.dimensions-title { 
-  font-size: 18px; 
-  font-weight: 600; 
-  color: #333; 
-  margin: 25px 0 10px 0; 
-  border-top: 1px solid #eee; 
-  padding-top: 20px; 
-}
-
-.dimension-item { 
-  display: flex; 
-  align-items: center; 
-  justify-content: space-between; 
-  padding: 8px 0; 
-}
-
-.dimension-label { 
-  display: flex; 
-  align-items: center; 
-  color: #555; 
-}
-
-.dimension-icon { 
-  width: 24px; 
-  height: 24px; 
-  background-color: #eee; 
-  border-radius: 50%; 
-  display: inline-flex; 
-  justify-content: center; 
-  align-items: center; 
-  margin-right: 12px; 
-  font-weight: bold; 
-  color: #555; 
-}
-
-.dimension-value { 
-  font-weight: 600; 
-  color: #333; 
-}
-
 .panel-footer { 
   padding: 20px 25px;   
   margin-top: auto; 

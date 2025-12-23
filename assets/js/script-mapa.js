@@ -1143,39 +1143,6 @@ function updatePanelInfo(lote) {
   document.getElementById('lote-tipo').textContent = lote.tipo || 'Residencial';
   document.getElementById('lote-area').textContent = area;
   
-  // Dimensiones - PRIORIZAR datos de API
-  let dimensiones;
-  
-    if (lotInfo && lotInfo.dimensions) {
-    // Validar que las dimensiones sean números válidos
-    const hasValidDimensions = 
-      typeof lotInfo.dimensions.front === 'number' && lotInfo.dimensions.front > 0 &&
-      typeof lotInfo.dimensions.right === 'number' && lotInfo.dimensions.right > 0 &&
-      typeof lotInfo.dimensions.left === 'number' && lotInfo.dimensions.left > 0 &&
-      typeof lotInfo.dimensions.back === 'number' && lotInfo.dimensions.back > 0;
-    
-    if (hasValidDimensions) {
-      // Usar dimensiones de la API (formato: front, right, left, back)
-      dimensiones = {
-        frente: `${lotInfo.dimensions.front.toFixed(2)} M`,
-        derecha: `${lotInfo.dimensions.right.toFixed(2)} M`,
-        izquierda: `${lotInfo.dimensions.left.toFixed(2)} M`,
-        fondo: `${lotInfo.dimensions.back.toFixed(2)} M`
-      };
-    } else {
-      // Si las dimensiones no son válidas, usar fallback
-      dimensiones = lote.dimensiones || DIMENSIONES_DEFAULT;
-    }
-  } else {
-    // Fallback: usar dimensiones del JSON local o valores por defecto
-    dimensiones = lote.dimensiones || DIMENSIONES_DEFAULT;
-  }
-  
-  document.getElementById('dim-izquierda').textContent = dimensiones.izquierda || '-';
-  document.getElementById('dim-derecha').textContent = dimensiones.derecha || '-';
-  document.getElementById('dim-frente').textContent = dimensiones.frente || '-';
-  document.getElementById('dim-fondo').textContent = dimensiones.fondo || '-';
-  
   // Link de WhatsApp - Comportamiento según estado del lote
   const whatsappElement = document.getElementById('whatsapp-link');
   const estadoLower = estado.toLowerCase();
