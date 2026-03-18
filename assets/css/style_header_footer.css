@@ -146,6 +146,12 @@ html {
     white-space: nowrap;
 }
 
+.icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+}
+
 /* social links removed from footer - styles deleted to avoid unused rules */
 
 .approval-icon {
@@ -354,131 +360,71 @@ a:hover {
 
 /*footer section*/
 .footer {
-    background: #000;
+    background: #111;
     color: var(--white);
-    padding: 3rem 0 1rem
+    padding: 2.5rem 0 1rem;
 }
 
-.footer-content {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    margin-bottom: 2rem
-}
-
-.footer-section {
-    padding: 1rem
-}
-
-.footer-contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem
-}
-
-.footer-contact-item {
+/* Brand bar: logo + tagline horizontal */
+.footer-brand-bar {
     display: flex;
     align-items: center;
-    gap: .75rem;
-    color: #fff;
-    text-decoration: none;
-    transition: all .3s ease;
-    padding: .5rem;
-    border-radius: 4px
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 
-.footer-contact-item:hover {
-    background-color: rgba(255, 255, 255, .1);
-    transform: translateX(5px)
+.footer-brand-tagline {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    line-height: 1.5;
+    color: #ccc;
+    margin: 0;
 }
 
-.footer-contact-item svg {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0
+.footer-divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    margin: 0 0 2rem;
+}
+
+/* 3 columnas principales */
+.footer-columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.footer-col-ventas,
+.footer-col-servicio {
+    border-left: 1px solid rgba(255,255,255,0.15);
+    padding-left: 2rem;
+}
+
+.footer-col-title {
+    font-size: 0.96rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #eac736;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+/* Navegación: 2 sub-columnas */
+.footer-nav-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2rem;
 }
 
 .footer-links {
     list-style: none;
     padding: 0;
-    margin: 0
-}
-
-.footer-links a {
-    display: block;
-    padding: .5rem;
-    border-radius: 4px
-}
-
-.footer-links a:hover {
-    background-color: rgba(255, 255, 255, .1);
-    transform: translateX(5px)
-}
-
-.footer-whatsapp-button {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
-    background-color: var(--emerald);
-    text-decoration: none;
-    padding: 1rem;
-    border-radius: 8px;
-    transition: all .3s ease;
-    margin-top: .3rem
-}
-
-.footer-whatsapp-button .btn-whatsapp-footer {
-    background-color: #25d366;
-    color: #fff;
-    width: 100%;
-    justify-content: center;
-    font-weight: 600;
-    padding: .8rem 1rem;
-    border-radius: 6px;
-}
-
-.footer-whatsapp-button .btn-whatsapp-footer:hover {
-    background-color: #1eae54;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .2)
-}
-
-.footer-whatsapp-button .btn-whatsapp-footer svg {
-    width: 20px;
-    height: 20px
-}
-
-.footer-logo img {
-    height: 120px !important;
-    width: auto !important;
-    max-width: 300px !important;
-    display: block;
-    filter: none
-}
-
-.footer-logo {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
-    margin-bottom: 1rem
-}
-
-.footer-section h4 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 1rem
-}
-
-.footer-description {
-    font-size: .875rem;
-    opacity: .8;
-    margin-bottom: 1rem;
-    line-height: 1.6;
-    color: var(--gray-300);
+    margin: 0;
 }
 
 .footer-links li {
-    margin-bottom: .5rem
+    margin-bottom: 0.4rem;
 }
 
 .footer-links a,
@@ -486,63 +432,176 @@ a:hover {
     background: 0 0;
     border: none;
     color: var(--white);
-    opacity: .8;
+    opacity: 0.8;
     text-decoration: none;
-    font-size: .875rem;
+    font-size: 0.875rem;
     cursor: pointer;
-    transition: var(--transition-smooth)
+    transition: var(--transition-smooth);
+    display: block;
+    padding: 0.2rem 0;
 }
 
 .footer-links a:hover,
 .footer-links button:hover {
-    opacity: 1
+    opacity: 1;
+    color: #eac736;
 }
 
-.footer-contact .icon {
-    width: 1rem;
-    height: 1rem;
-    flex-shrink: 0
+/* Contact info dentro de columnas ventas/servicio */
+.footer-contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
 }
 
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.footer-contact-item .icon {
+    flex-shrink: 0;
+}
+
+.footer-contact-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.85;
+    line-height: 1.6;
+}
+
+.footer-contact-info a:hover {
+    color: #eac736 !important;
+}
+
+.footer-schedule {
+    font-size: 0.82rem !important;
+    opacity: 0.65 !important;
+    margin-top: 0.25rem;
+}
+
+/* Botones WhatsApp del footer */
+.footer-whatsapp-button {
+    margin-top: 1rem;
+}
+
+.footer-whatsapp-button .btn-whatsapp-footer {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #25d366;
+    color: #fff;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.footer-whatsapp-button .btn-whatsapp-footer:hover {
+    background-color: #1eae54;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.footer-whatsapp-button .btn-whatsapp-footer svg {
+    width: 18px;
+    height: 18px;
+}
+
+.footer-col-subtitle {
+    font-size: 0.82rem;
+    color: #888;
+    margin: 0.75rem 0 0;
+    line-height: 1.5;
+}
+
+/* WhatsApp Clientes: mismo estilo verde */
+.footer-whatsapp-button .btn-whatsapp-clientes {
+    background-color: #25d366;
+    color: #fff;
+}
+
+.footer-whatsapp-button .btn-whatsapp-clientes:hover {
+    background-color: #1eae54;
+    color: #fff;
+}
+
+/* Logo en footer */
+.footer-logo img {
+    height: 80px !important;
+    width: auto !important;
+    max-width: 200px !important;
+    display: block;
+    filter: none;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* Footer bottom */
 .footer-bottom {
-    border-top: 1px solid hsl(255, 255%, 255%, .2);
-    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     align-items: center;
-    font-size: .875rem
+    font-size: 0.875rem;
 }
 
 .footer-copyright {
-    opacity: .8
+    opacity: 0.8;
 }
 
 .footer-approval {
     display: flex;
     align-items: center;
     gap: 1rem;
-    opacity: .8
+    opacity: 0.8;
 }
 
-
-@media (min-width:768px) {
-    .footer-content {
-        grid-template-columns: repeat(2, 1fr);
+/* Responsive: 768px+ */
+@media (min-width: 768px) {
+    .footer-columns {
+        grid-template-columns: 1.2fr 1fr 1fr;
     }
 
     .footer-bottom {
         flex-direction: row;
-        justify-content: space-between
+        justify-content: space-between;
     }
 }
 
+/* Responsive: mobile */
+@media (max-width: 767px) {
+    .footer-brand-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
 
-@media (min-width:1024px) {
-    .footer-content {
-        grid-template-columns: repeat(4, 1fr)
+    .footer-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-col-ventas,
+    .footer-col-servicio {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid rgba(255,255,255,0.15);
+        padding-top: 1.5rem;
     }
 }
+
 
 /* Mobile navigation (hamburger) */
 .mobile-menu-btn {
@@ -659,10 +718,6 @@ a:hover {
     .header-content {
         gap: 0.5rem;
         padding: 0;
-    }
-
-    .footer-content {
-        gap: 0rem !important;
     }
 }
 
