@@ -1,3 +1,18 @@
+// Ajustar zoom dinámico para pantallas grandes (mayores a 1280px)
+function adjustZoomForLargeScreens() {
+    if (window.innerWidth > 1280) {
+        document.body.style.zoom = (window.innerWidth / 1280);
+    } else {
+        document.body.style.zoom = '';
+    }
+}
+window.addEventListener('resize', adjustZoomForLargeScreens);
+if (document.body) {
+    adjustZoomForLargeScreens();
+} else {
+    document.addEventListener('DOMContentLoaded', adjustZoomForLargeScreens);
+}
+
 function scrollToSection(sectionId) {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -877,7 +892,10 @@ document.addEventListener('DOMContentLoaded', () => {
             mutations.forEach((mutation) => {
                 // Detectar cambios en clases (como .scrolled)
                 if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                    hasClassChange = true;
+                    // Asegurar que el cambio sea directamente en el header, no en un hijo (como dropdowns)
+                    if (mutation.target === mainHeader) {
+                        hasClassChange = true;
+                    }
                 }
                 // Detectar eliminación de elementos (como .top-promo)
                 if (mutation.type === 'childList' && mutation.removedNodes.length > 0) {
@@ -928,8 +946,17 @@ document.addEventListener('DOMContentLoaded', function () {
         progressBar.style.width = Math.min(scrollPercent, 100) + '%';
     }
 
-    // Eventos
-    window.addEventListener('scroll', updateScrollProgress);
+    // Eventos (throttled via rAF for scroll performance)
+    var scrollProgressTicking = false;
+    window.addEventListener('scroll', function () {
+        if (!scrollProgressTicking) {
+            requestAnimationFrame(function () {
+                updateScrollProgress();
+                scrollProgressTicking = false;
+            });
+            scrollProgressTicking = true;
+        }
+    });
     window.addEventListener('resize', updateScrollProgress);
     updateScrollProgress();
 });
@@ -1070,3 +1097,41 @@ function initFloatingNotice() {
 }
 
 document.addEventListener('DOMContentLoaded', initFloatingNotice);
+
+/* ── CTA DROPDOWN  Consulta tus beneficios ── */
+function toggleCtaDropdown(e) {
+    e.stopPropagation();
+    var menu    = document.getElementById('ctaDropdownMenu');
+    var chevron = document.getElementById('ctaChevron');
+    var btn     = document.getElementById('ctaDropdownBtn');
+    if (!menu) return;
+    var isOpen = menu.classList.contains('open');
+    menu.classList.toggle('open', !isOpen);
+    chevron.classList.toggle('open', !isOpen);
+    btn.setAttribute('aria-expanded', String(!isOpen));
+}
+
+document.addEventListener('click', function (e) {
+    var wrapper = document.getElementById('ctaDropdownWrapper');
+    if (wrapper && !wrapper.contains(e.target)) {
+        var menu    = document.getElementById('ctaDropdownMenu');
+        var chevron = document.getElementById('ctaChevron');
+        var btn     = document.getElementById('ctaDropdownBtn');
+        if (!menu) return;
+        menu.classList.remove('open');
+        chevron.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+    }
+});
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+        var menu    = document.getElementById('ctaDropdownMenu');
+        var chevron = document.getElementById('ctaChevron');
+        var btn     = document.getElementById('ctaDropdownBtn');
+        if (!menu) return;
+        menu.classList.remove('open');
+        chevron.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+    }
+});

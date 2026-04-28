@@ -1,0 +1,316 @@
+/* ── ALIADOS PAGE ─────────────────────────────── */
+
+main.aliados-main {
+    margin-top: 10px;
+}
+
+/* ── HERO BANNER ─────────────────────────────── */
+.aliados-hero {
+    background: linear-gradient(135deg, #081a4b 0%, #0f2d6e 50%, #1a3a7a 100%);
+    padding: 3.5rem 0 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.aliados-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(234, 199, 54, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.aliados-hero h1 {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.aliados-hero p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1.05rem;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.aliados-breadcrumb {
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.aliados-breadcrumb a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.aliados-breadcrumb a:hover {
+    color: #eac736;
+}
+
+.aliados-breadcrumb span {
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0 0.5rem;
+    font-size: 0.85rem;
+}
+
+.aliados-breadcrumb .current {
+    color: #eac736;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* ── FILTERS ─────────────────────────────────── */
+.aliados-filters-section {
+    padding: 2rem 0 0;
+    background: #ffffff;
+}
+
+.aliados-filters {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: 700px;
+}
+
+.aliados-search {
+    flex: 1 1 260px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d4d4d4;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: #ffffff;
+    color: #1f1f1f;
+    transition: border-color 0.2s;
+}
+
+.aliados-search:focus {
+    outline: none;
+    border-color: #081a4b;
+    box-shadow: 0 0 0 3px rgba(8, 26, 75, 0.08);
+}
+
+.aliados-search::placeholder {
+    color: #999;
+}
+
+.aliados-select {
+    flex: 0 1 220px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d4d4d4;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: #ffffff;
+    color: #1f1f1f;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+    padding-right: 2.2rem;
+    transition: border-color 0.2s;
+}
+
+.aliados-select:focus {
+    outline: none;
+    border-color: #081a4b;
+    box-shadow: 0 0 0 3px rgba(8, 26, 75, 0.08);
+}
+
+/* ── ALLIES GRID ─────────────────────────────── */
+.aliados-grid-section {
+    padding: 2rem 0 4rem;
+    background: #ffffff;
+    min-height: 400px;
+}
+
+.aliados-results-count {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 1.5rem;
+}
+
+.aliados-results-count strong {
+    color: #081a4b;
+}
+
+.aliados-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+}
+
+/* ── ALLY CARD ───────────────────────────────── */
+.aliado-card {
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.aliado-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.aliado-card-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.aliado-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    padding: 1rem;
+    box-sizing: border-box;
+    background: white;
+}
+
+.aliado-card-badge {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.7rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    text-transform: capitalize;
+}
+
+.aliado-card-badge.badge-hogar {
+    background: linear-gradient(135deg, #16a34a, #22c55e);
+}
+
+.aliado-card-badge.badge-salud {
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+}
+
+.aliado-card-badge.badge-restaurantes {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+.aliado-card-body {
+    padding: 1.1rem 1.2rem 1.3rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.aliado-card-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.aliado-card-name a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.aliado-card-name a:hover {
+    color: #081a4b;
+}
+
+.aliado-card-discount {
+    font-size: 0.82rem;
+    color: #555;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    line-height: 1.4;
+}
+
+/* ── EMPTY STATE ─────────────────────────────── */
+.aliados-empty {
+    text-align: center;
+    padding: 4rem 1rem;
+    grid-column: 1 / -1;
+}
+
+.aliados-empty-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+    color: #ccc;
+}
+
+.aliados-empty h3 {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 0 0 0.5rem;
+}
+
+.aliados-empty p {
+    color: #999;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* ── RESPONSIVE ──────────────────────────────── */
+@media (min-width: 500px) {
+    .aliados-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .aliados-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .aliados-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    main.aliados-main {
+        margin-top: 120px;
+    }
+
+    .aliados-hero {
+        padding: 2.5rem 0 1.8rem;
+    }
+
+    .aliados-filters {
+        flex-direction: column;
+    }
+
+    .aliados-search,
+    .aliados-select {
+        flex: none;
+        width: 100%;
+    }
+}
