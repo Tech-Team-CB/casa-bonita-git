@@ -296,9 +296,6 @@ main.aliados-main {
 }
 
 @media (max-width: 768px) {
-    main.aliados-main {
-        margin-top: 120px;
-    }
 
     .aliados-hero {
         padding: 2.5rem 0 1.8rem;
