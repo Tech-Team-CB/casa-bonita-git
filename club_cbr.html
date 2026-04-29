@@ -191,19 +191,19 @@
                             </div>
                             <div class="swiper-slide">
                                 <button type="button" class="club-brand-card" data-brand="bocami" aria-label="Ver informacion de Bocami">
-                                    <img src="assets/img/bocami.png" alt="Marca Bocami" loading="lazy" width="320" height="120">
+                                    <img src="assets/img/bocami.webp" alt="Marca Bocami" loading="lazy" width="320" height="120">
                                     <span>Bocami</span>
                                 </button>
                             </div>
                             <div class="swiper-slide">
                                 <button type="button" class="club-brand-card" data-brand="glowup" aria-label="Ver informacion de GlowUp Boutique Spa">
-                                    <img src="assets/img/GLOWUP.png" alt="Marca GlowUp Boutique Spa" loading="lazy" width="320" height="120">
+                                    <img src="assets/img/GLOWUP.webp" alt="Marca GlowUp Boutique Spa" loading="lazy" width="320" height="120">
                                     <span>GlowUp</span>
                                 </button>
                             </div>
                             <div class="swiper-slide">
                                 <button type="button" class="club-brand-card" data-brand="qala-club" aria-label="Ver informacion de Qala Club">
-                                    <img src="assets/img/Qala.png" alt="Marca Qala Club" loading="lazy" width="320" height="120">
+                                    <img src="assets/img/Qala.webp" alt="Marca Qala Club" loading="lazy" width="320" height="120">
                                     <span>Qala Club</span>
                                 </button>
                             </div>
@@ -469,7 +469,38 @@
                     history.replaceState(null, '', '#club-associate-form-block');
                 });
             }
+            //eliminar luego esto 
+            // Bloquear envío del formulario - mostrar mensaje amarillo
+            var associateForm = document.querySelector('.club-associate-form');
+            if (associateForm) {
+                associateForm.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    showToastMessage('⚠️ Este formulario está en proceso de desarrollo. Contáctanos por WhatsApp o email.');
+                });
+            }
         });
+
+        // Mostrar toast message
+        function showToastMessage(message) {
+            var existingToast = document.getElementById('form-toast');
+            if (existingToast) {
+                existingToast.remove();
+            }
+
+            var toast = document.createElement('div');
+            toast.id = 'form-toast';
+            toast.className = 'form-toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(function () {
+                toast.classList.add('hide');
+                setTimeout(function () {
+                    toast.remove();
+                }, 300);
+            }, 4000);
+        }
+        //hasta aca
     </script>
     <!-- Performance: pause video off-screen & optimize scroll listeners -->
     <script>
