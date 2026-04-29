@@ -308,6 +308,6 @@ main.aliados-main {
     .aliados-search,
     .aliados-select {
         flex: none;
-        width: 100%;
+        width: 90%;
     }
 }
