@@ -198,7 +198,7 @@ main {
 .club-ally-card:hover {
     will-change: transform;
     transform: translateY(-4px) translateZ(0);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
 }
 
 .club-ally-card img {
