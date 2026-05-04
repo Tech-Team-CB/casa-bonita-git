@@ -775,16 +775,13 @@ function stopTestimonialsAutoplay() {
 // Funcionalidad del header compacto al hacer scroll
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.main-header');
+    let lastScrollTop = 0;
     let isScrolling = false;
     let wasScrolled = false; // Rastrear el estado anterior
-    const collapseThreshold = 120;
-    const expandThreshold = 60;
 
     function handleHeaderScroll() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const isCurrentlyScrolled = wasScrolled
-            ? scrollTop > collapseThreshold
-            : scrollTop > expandThreshold;
+        const isCurrentlyScrolled = scrollTop > 0; // Cambio de 100 a 0 para activación inmediata
 
         // Detectar cambio de estado
         const stateChanged = wasScrolled !== isCurrentlyScrolled;
@@ -796,9 +793,10 @@ document.addEventListener('DOMContentLoaded', () => {
             header.classList.remove('scrolled');
         }
 
-        updateBodyPadding();
+        // No recalcular padding en scroll para mantener el valor inicial
 
         wasScrolled = isCurrentlyScrolled;
+        lastScrollTop = scrollTop;
         isScrolling = false;
     }
 
@@ -815,13 +813,33 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Sistema inteligente de cálculo de padding del body
-function updateBodyPadding() {
+function updateBodyPadding(forceRecalc) {
     const body = document.body;
     const mainHeader = document.querySelector('.main-header');
     if (!body || !mainHeader) return;
 
     const headerHeight = Math.round(mainHeader.getBoundingClientRect().height);
-    body.style.paddingTop = `${headerHeight}px`;
+    const currentBase = Number(body.dataset.basePadding || 0);
+
+    if (forceRecalc || currentBase === 0) {
+        let expandedHeight = headerHeight;
+
+        if (mainHeader.classList.contains('scrolled')) {
+            mainHeader.classList.add('no-transition');
+            mainHeader.classList.remove('scrolled');
+            mainHeader.offsetHeight;
+            expandedHeight = Math.round(mainHeader.getBoundingClientRect().height);
+            mainHeader.classList.add('scrolled');
+            mainHeader.offsetHeight;
+            mainHeader.classList.remove('no-transition');
+        }
+
+        body.dataset.basePadding = String(Math.max(headerHeight, expandedHeight));
+    } else {
+        body.dataset.basePadding = String(Math.max(currentBase, headerHeight));
+    }
+
+    body.style.paddingTop = `${body.dataset.basePadding}px`;
 }   
 
 // Función para cerrar el anuncio promocional
@@ -839,7 +857,7 @@ function closePromoBar() {
             promoBar.remove();
             // Recalcular con delay adicional para manejar transiciones
             setTimeout(() => {
-                updateBodyPadding();
+                updateBodyPadding(true);
             }, 100); // Delay adicional para cambios complejos
         }, 300);
     }
@@ -852,7 +870,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mainHeader) {
         // Aplicar padding inicial después de que todo se cargue
         setTimeout(() => {
-            updateBodyPadding();
+            updateBodyPadding(true);
         }, 100);
 
         // Observar cambios de tamaño de ventana
@@ -860,7 +878,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
-                updateBodyPadding();
+                updateBodyPadding(true);
             }, 50);
         });
 
@@ -883,7 +901,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Solo recalcular cuando se remueven elementos del header
             if (hasElementRemoved) {
-                setTimeout(updateBodyPadding, 50);
+                setTimeout(() => updateBodyPadding(true), 50);
             }
         });
 
@@ -894,11 +912,6 @@ document.addEventListener('DOMContentLoaded', () => {
             subtree: true,
             attributeFilter: ['class']
         });
-
-        const headerResizeObserver = new ResizeObserver(() => {
-            updateBodyPadding();
-        });
-        headerResizeObserver.observe(mainHeader);
     }
 });
 
