@@ -822,19 +822,7 @@ function updateBodyPadding(forceRecalc) {
     const currentBase = Number(body.dataset.basePadding || 0);
 
     if (forceRecalc || currentBase === 0) {
-        let expandedHeight = headerHeight;
-
-        if (mainHeader.classList.contains('scrolled')) {
-            mainHeader.classList.add('no-transition');
-            mainHeader.classList.remove('scrolled');
-            mainHeader.offsetHeight;
-            expandedHeight = Math.round(mainHeader.getBoundingClientRect().height);
-            mainHeader.classList.add('scrolled');
-            mainHeader.offsetHeight;
-            mainHeader.classList.remove('no-transition');
-        }
-
-        body.dataset.basePadding = String(Math.max(headerHeight, expandedHeight));
+        body.dataset.basePadding = String(headerHeight);
     } else {
         body.dataset.basePadding = String(Math.max(currentBase, headerHeight));
     }
