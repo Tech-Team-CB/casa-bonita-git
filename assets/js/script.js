@@ -775,13 +775,16 @@ function stopTestimonialsAutoplay() {
 // Funcionalidad del header compacto al hacer scroll
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.main-header');
-    let lastScrollTop = 0;
     let isScrolling = false;
     let wasScrolled = false; // Rastrear el estado anterior
+    const collapseThreshold = 120;
+    const expandThreshold = 60;
 
     function handleHeaderScroll() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const isCurrentlyScrolled = scrollTop > 0; // Cambio de 100 a 0 para activación inmediata
+        const isCurrentlyScrolled = wasScrolled
+            ? scrollTop > collapseThreshold
+            : scrollTop > expandThreshold;
 
         // Detectar cambio de estado
         const stateChanged = wasScrolled !== isCurrentlyScrolled;
@@ -796,7 +799,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // No recalcular padding en scroll para mantener el valor inicial
 
         wasScrolled = isCurrentlyScrolled;
-        lastScrollTop = scrollTop;
         isScrolling = false;
     }
 
@@ -822,7 +824,19 @@ function updateBodyPadding(forceRecalc) {
     const currentBase = Number(body.dataset.basePadding || 0);
 
     if (forceRecalc || currentBase === 0) {
-        body.dataset.basePadding = String(headerHeight);
+        let expandedHeight = headerHeight;
+
+        if (mainHeader.classList.contains('scrolled')) {
+            mainHeader.classList.add('no-transition');
+            mainHeader.classList.remove('scrolled');
+            mainHeader.offsetHeight;
+            expandedHeight = Math.round(mainHeader.getBoundingClientRect().height);
+            mainHeader.classList.add('scrolled');
+            mainHeader.offsetHeight;
+            mainHeader.classList.remove('no-transition');
+        }
+
+        body.dataset.basePadding = String(Math.max(headerHeight, expandedHeight));
     } else {
         body.dataset.basePadding = String(Math.max(currentBase, headerHeight));
     }

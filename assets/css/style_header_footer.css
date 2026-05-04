@@ -216,6 +216,11 @@ html {
     padding: 0;
 }
 
+.main-header.no-transition,
+.main-header.no-transition .header-content {
+    transition: none !important;
+}
+
 .main-header_MAP{
     background: var(--white);
     box-shadow: var(--shadow-soft);
