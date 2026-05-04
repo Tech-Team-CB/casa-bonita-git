@@ -793,13 +793,7 @@ document.addEventListener('DOMContentLoaded', () => {
             header.classList.remove('scrolled');
         }
 
-        // Recalcular padding solo si hubo cambio de estado o al inicializar
-        if (stateChanged || wasScrolled === undefined) {
-            // Usar timeout para asegurar que las transiciones CSS se completen
-            setTimeout(() => {
-                updateBodyPadding();
-            }, 100); // Ligeramente más que la transición CSS (0.3s)
-        }
+        // No recalcular padding en scroll para mantener el valor inicial
 
         wasScrolled = isCurrentlyScrolled;
         lastScrollTop = scrollTop;
@@ -819,23 +813,22 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Sistema inteligente de cálculo de padding del body
-function updateBodyPadding() {
+function updateBodyPadding(forceRecalc) {
     const body = document.body;
     const mainHeader = document.querySelector('.main-header');
+    if (!body || !mainHeader) return;
 
-    if (!mainHeader) return;
+    const headerHeight = Math.round(mainHeader.getBoundingClientRect().height);
+    const currentBase = Number(body.dataset.basePadding || 0);
 
-    // Forzar múltiples reflows para obtener medidas precisas
-    mainHeader.offsetHeight;
+    if (forceRecalc || currentBase === 0) {
+        body.dataset.basePadding = String(headerHeight);
+    } else {
+        body.dataset.basePadding = String(Math.max(currentBase, headerHeight));
+    }
 
-    // Usar requestAnimationFrame doble para asegurar que los cambios CSS se apliquen completamente
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            const headerHeight = mainHeader.offsetHeight;
-            body.style.paddingTop = headerHeight + 'px';
-        });
-    });
-}
+    body.style.paddingTop = `${body.dataset.basePadding}px`;
+}   
 
 // Función para cerrar el anuncio promocional
 function closePromoBar() {
@@ -852,7 +845,7 @@ function closePromoBar() {
             promoBar.remove();
             // Recalcular con delay adicional para manejar transiciones
             setTimeout(() => {
-                updateBodyPadding();
+                updateBodyPadding(true);
             }, 100); // Delay adicional para cambios complejos
         }, 300);
     }
@@ -865,7 +858,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mainHeader) {
         // Aplicar padding inicial después de que todo se cargue
         setTimeout(() => {
-            updateBodyPadding();
+            updateBodyPadding(true);
         }, 100);
 
         // Observar cambios de tamaño de ventana
@@ -873,7 +866,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
-                updateBodyPadding();
+                updateBodyPadding(true);
             }, 50);
         });
 
@@ -885,31 +878,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Observador de mutaciones para detectar cambios en el DOM del header
         const headerObserver = new MutationObserver((mutations) => {
-            let shouldUpdate = false;
-            let hasClassChange = false;
             let hasElementRemoved = false;
 
             mutations.forEach((mutation) => {
-                // Detectar cambios en clases (como .scrolled)
-                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                    // Asegurar que el cambio sea directamente en el header, no en un hijo (como dropdowns)
-                    if (mutation.target === mainHeader) {
-                        hasClassChange = true;
-                    }
-                }
                 // Detectar eliminación de elementos (como .top-promo)
                 if (mutation.type === 'childList' && mutation.removedNodes.length > 0) {
                     hasElementRemoved = true;
                 }
             });
 
-            // Manejar diferentes tipos de cambios con delays apropiados
-            if (hasClassChange) {
-                // Cambio de clase (scroll): esperar a que termine la transición
-                setTimeout(updateBodyPadding, 50);
-            } else if (hasElementRemoved) {
-                // Elemento removido: delay más corto
-                setTimeout(updateBodyPadding, 50);
+            // Solo recalcular cuando se remueven elementos del header
+            if (hasElementRemoved) {
+                setTimeout(() => updateBodyPadding(true), 50);
             }
         });
 
