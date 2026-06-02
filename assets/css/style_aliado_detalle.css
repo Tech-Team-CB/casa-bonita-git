@@ -156,10 +156,62 @@ main.aliado-detalle-main {
     letter-spacing: 0.02em;
 }
 
+.croquis-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6rem;
+}
+
+.croquis-counter {
+    font-size: 0.85rem;
+    color: #888;
+    font-weight: 600;
+}
+
 .croquis-image-wrapper {
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
+}
+
+.croquis-nav {
+    display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border: 1px solid #d7d7d7;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    padding: 0;
+}
+
+.croquis-prev {
+    left: 8px;
+    background-color: darkgray;
+    color: black;
+}
+
+.croquis-next {
+    right: 8px;
+    background-color: darkgray;
+    color: black;
+}
+
+.croquis-nav:hover {
+    background: #f3f3f3;
+    border-color: #c8c8c8;
+}
+
+.croquis-nav svg {
+    width: 14px;
+    height: 14px;
 }
 
 .croquis-img {

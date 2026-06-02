@@ -181,9 +181,22 @@
                     <!-- Columna derecha: Croquis -->
                     <div class="aliado-detalle-right">
                         <div class="aliado-croquis-container">
-                            <h3 class="croquis-title">Ubicación</h3>
+                            <div class="croquis-header">
+                                <h3 class="croquis-title">Ubicación</h3>
+                                <span class="croquis-counter" id="croquis-counter"></span>
+                            </div>
                             <div class="croquis-image-wrapper">
+                                <button class="croquis-nav croquis-prev" id="croquis-prev" aria-label="Ubicación anterior">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M15 18L9 12L15 6"></path>
+                                    </svg>
+                                </button>
                                 <img id="detalle-croquis" src="" alt="Croquis de ubicación" class="croquis-img" loading="lazy">
+                                <button class="croquis-nav croquis-next" id="croquis-next" aria-label="Siguiente ubicación">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 18L15 12L9 6"></path>
+                                    </svg>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -607,6 +620,125 @@
                 ],
                 enlaceExterno: 'https://www.instagram.com/qalaclub___?igsh=MTQ5dG93MjVuY3B4Nw=='
             },
+            'chifa-whally': {
+                nombre: 'Chifa Whally',
+                slug: 'chifa-whally',
+                categoria: 'restaurantes',
+                categoriaLabel: 'Restaurantes & Cafés',
+                imagen: 'assets/img/WHALLY.webp',
+                croquis: 'assets/img/UBICACION_WHALLY.png',
+                descuento: '16% lunes-jueves / 10% viernes-domingo',
+                direccion: 'Piura, Perú',
+                telefono: '(+51) 946 552 086',
+                telefonoRaw: '+51946552086',
+                intro: '<strong>CHIFA WHALLY</strong> te ofrece deliciosa comida china auténtica con beneficios exclusivos para socios del Club CBR.',
+                beneficios: [
+                    '16% de descuento en la carta de lunes a jueves.',
+                    '10% de descuento en la carta de viernes a domingo.'
+                ],
+                pasos: [
+                    'Acércate a CHIFA WHALLY con tu DNI titular.',
+                    'Indica que perteneces al Club CBR antes de realizar tu pedido.',
+                    'Espera se realice la validación respectiva.',
+                    'No aplica para días feriados.',
+                    'Descuento no acumulable con otras promociones.',
+                    'No aplica para costillas de cerdo y platos especiales.'
+                ],
+                enlaceExterno: '#'
+            },
+            'dr-sandro-purizaca': {
+                nombre: 'Dr. Sandro Purizaca',
+                slug: 'dr-sandro-purizaca',
+                categoria: 'salud',
+                categoriaLabel: 'Salud & Belleza',
+                imagen: 'assets/img/Sandro_Purizaca.webp',
+                croquis: ['assets/img/UBICACION_SANDRO_1.png', 'assets/img/UBICACION_SANDRO_2.png'],
+                descuento: '20% de descuento en todos los tratamientos',
+                direccion: 'Piura, Perú',
+                telefono: '(+51) 946 552 086',
+                telefonoRaw: '+51946552086',
+                intro: '<strong>DR. SANDRO PURIZACA</strong> ofrece servicios médicos especializados con beneficios exclusivos para socios del Club CBR.',
+                beneficios: [
+                    '20% de descuento en todos los tratamientos médicos.'
+                ],
+                pasos: [
+                    'Agenda tu cita indicando que eres socio del Club CBR.',
+                    'Presenta tu DNI titular para la validación correspondiente.',
+                    'No aplica para días feriados.',
+                    'Descuento no acumulable con otras promociones.',
+                    'Confirma los tratamientos aplicables y términos vigentes al momento de tu atención.'
+                ],
+                enlaceExterno: '#'
+            },
+            'vinali-medicina-integrativa': {
+                nombre: 'VINALI - Medicina Integrativa',
+                slug: 'vinali-medicina-integrativa',
+                categoria: 'salud',
+                categoriaLabel: 'Salud & Belleza',
+                imagen: 'assets/img/VINALI.webp',
+                croquis: 'assets/img/UBICACION_VINALI.png',
+                descuento: 'Hasta 50% de descuento en servicios',
+                direccion: 'Piura, Perú',
+                telefono: '(+51) 946 552 086',
+                telefonoRaw: '+51946552086',
+                intro: '<strong>VINALI - MEDICINA INTEGRATIVA</strong> brinda servicios de dermatología, estética y bienestar con beneficios exclusivos para socios del Club CBR en Piura.',
+                beneficios: [
+                    '30% CONSULTA DERMATOLOGIA VINALI PIURA',
+                    '35% HYDRA BEAUTY',
+                    '40% HYDRA BEAUTY PREMIUM',
+                    '10% VITAMINA C REFORCE ENDOVENOSO',
+                    '20% VITAMINA PASCOE ENDOVENOSO',
+                    '15% VITAMINA C REFORCE + COCTEL DE VITAMINAS',
+                    '20% VITAMINA C PASCOE + COCTEL DE VITAMINAS',
+                    '20% VITAMINA C REFORCE + COMPLEJO B',
+                    '50% TERAPIA LED CELLUMA',
+                    '50% TERAPIA CAPILAR INTEGRATIVA',
+                    '15% PROCEDIMIENTOS ESTETICOS',
+                    '10% PROCEDIMIENTOS CLINICOS',
+                    '20% DESCUENTO EN FARMACIA QF'
+                ],
+                pasos: [
+                    'Agenda tu cita indicando que eres socio del Club CBR.',
+                    'Presenta tu DNI titular para la validación correspondiente.',
+                    'Los descuentos en procedimientos estéticos estarán sujetos al precio regular en la campaña del mes vigente.',
+                    'Los descuentos, promociones y beneficios no son transferibles.',
+                    'Los descuentos y beneficios solo aplican dentro del mes de vigencia de la campaña.',
+                    'Los beneficios serán accedidos solo para beneficiarios que se logren identificar con su DNI y figuren en la base de datos del socio del convenio.'
+                ],
+                enlaceExterno: '#'
+            },
+            'consultorio-leal': {
+                nombre: 'Consultorio Estomatológico LEAL',
+                slug: 'consultorio-leal',
+                categoria: 'salud',
+                categoriaLabel: 'Salud & Belleza',
+                imagen: 'assets/img/LEAL.webp',
+                croquis: 'assets/img/UBICACION_LEAL.png',
+                descuento: '16% de descuento en servicios odontológicos',
+                direccion: 'Piura, Perú',
+                telefono: '(+51) 946 552 086',
+                telefonoRaw: '+51946552086',
+                intro: '<strong>CONSULTORIO ESTOMATOLÓGICO LEAL</strong> ofrece servicios odontológicos de calidad con beneficios exclusivos para socios del Club CBR. Comprometidos con tu salud y bienestar bucal.',
+                beneficios: [
+                    '16% de descuento en los servicios odontológicos y estomatológicos.',
+                    'Descuento aplicable únicamente previa evaluación profesional.',
+                    'Descuento personal e intransferible.'
+                ],
+                pasos: [
+                    'Con el objetivo de brindar una atención transparente, segura y de calidad a nuestros pacientes, se establecen los siguientes términos y condiciones aplicables a los pacientes derivados mediante convenio empresarial y/o campañas de captación mediante base de datos autorizada.',
+                    '1. DEL CONVENIO - El presente convenio tiene como finalidad otorgar beneficios promocionales a los pacientes derivados por la empresa afiliada encargada de direccionar usuarios mediante su base de datos y canales de comunicación autorizados.',
+                    '2. BENEFICIO DEL DESCUENTO - Los pacientes derivados mediante dicho convenio accederán a un 16% de descuento en los servicios odontológicos y estomatológicos brindados por el Consultorio Estomatológico Leal.',
+                    '3. CONDICIONES DEL DESCUENTO - El descuento será aplicado únicamente previa evaluación profesional. El beneficio no es acumulable con otras promociones, campañas o descuentos vigentes. El descuento aplica únicamente sobre tratamientos realizados dentro del consultorio. Los costos de radiografías, exámenes auxiliares, medicamentos o procedimientos externos podrán no estar incluidos dentro del descuento. El descuento es personal e intransferible.',
+                    '4. EVALUACIÓN Y PLAN DE TRATAMIENTO - Todo paciente deberá pasar previamente por una evaluación clínica para determinar diagnóstico, alternativas de tratamiento y presupuesto. El profesional tratante podrá modificar el plan de tratamiento según criterio clínico y necesidades del paciente. Los tratamientos estarán sujetos a disponibilidad de agenda y evaluación de salud general del paciente.',
+                    '5. RESPONSABILIDADES DEL PACIENTE - El paciente se compromete a: Brindar información verídica sobre su estado de salud, cumplir con las indicaciones y controles establecidos, asistir puntualmente a sus citas programadas, comunicar con anticipación cualquier cancelación o reprogramación.',
+                    '6. CITAS Y REPROGRAMACIONES - Las citas podrán ser reprogramadas con un mínimo de 24 horas de anticipación. La inasistencia reiterada podrá ocasionar la pérdida del beneficio promocional.',
+                    '7. PROTECCIÓN DE DATOS - La información personal de los pacientes será manejada con estricta confidencialidad y conforme a la normativa vigente de protección de datos personales en el Perú.',
+                    '8. VIGENCIA - Los beneficios del convenio estarán sujetos a la vigencia establecida entre ambas partes y podrán ser modificados o suspendidos previa comunicación.',
+                    '9. ACEPTACIÓN - Al agendar una cita o iniciar tratamiento, el paciente declara haber leído y aceptado los presentes términos y condiciones.',
+                    'Consultorio Estomatológico Leal - Comprometidos con tu salud y bienestar bucal.'
+                ],
+                enlaceExterno: '#'
+            },
         };
 
         // Mapeo de data-brand (club cbr) → slug real del aliado
@@ -620,7 +752,12 @@
             'enero': 'enero',
             'bocami': 'bocami',
             'glowup': 'glowup',
-            'qala-club': 'qala-club'
+            'qala-club': 'qala-club',
+            // Nuevos aliados
+            'chifa-whally': 'chifa-whally',
+            'dr-sandro-purizaca': 'dr-sandro-purizaca',
+            'vinali-medicina-integrativa': 'vinali-medicina-integrativa',
+            'consultorio-leal': 'consultorio-leal'
         };
 
         // ── Inicializar página ──────────────────────────────────
@@ -671,9 +808,50 @@
             const pasosEl = document.getElementById('detalle-pasos');
             pasosEl.innerHTML = aliado.pasos.map(p => `<li>${p}</li>`).join('');
 
-            // Croquis
-            const croquis = aliado.croquis || 'assets/img/croquis.jpeg';
-            document.getElementById('detalle-croquis').src = croquis;
+            // Croquis - soporte para múltiples ubicaciones
+            let croquis = aliado.croquis || 'assets/img/croquis.jpeg';
+            let croquisList = Array.isArray(croquis) ? croquis : [croquis];
+            let currentCroquis = 0;
+
+            const croquisImg = document.getElementById('detalle-croquis');
+            const croquisCounter = document.getElementById('croquis-counter');
+            const croquisPrev = document.getElementById('croquis-prev');
+            const croquisNext = document.getElementById('croquis-next');
+
+            // Mostrar primer croquis
+            croquisImg.src = croquisList[currentCroquis];
+
+            // Actualizar contador y botones
+            const updateCroquis = () => {
+                croquisImg.src = croquisList[currentCroquis];
+                
+                if (croquisList.length > 1) {
+                    croquisCounter.textContent = `${currentCroquis + 1} de ${croquisList.length}`;
+                    croquisPrev.style.display = currentCroquis > 0 ? 'flex' : 'none';
+                    croquisNext.style.display = currentCroquis < croquisList.length - 1 ? 'flex' : 'none';
+                } else {
+                    croquisCounter.textContent = '';
+                    croquisPrev.style.display = 'none';
+                    croquisNext.style.display = 'none';
+                }
+            };
+
+            updateCroquis();
+
+            // Event listeners para navegación
+            croquisPrev.addEventListener('click', () => {
+                if (currentCroquis > 0) {
+                    currentCroquis--;
+                    updateCroquis();
+                }
+            });
+
+            croquisNext.addEventListener('click', () => {
+                if (currentCroquis < croquisList.length - 1) {
+                    currentCroquis++;
+                    updateCroquis();
+                }
+            });
         });
     </script>
     <script src="assets/js/script.js" defer></script>
