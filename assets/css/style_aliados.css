@@ -214,6 +214,19 @@ main.aliados-main {
     background: linear-gradient(135deg, #dc2626, #ef4444);
 }
 
+.aliado-card-badge.badge-deportes {
+    background: linear-gradient(135deg, #db2777, #f43f5e);
+}
+
+.aliado-card-badge.badge-educacion {
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+}
+
+.aliado-card-badge.badge-mascotas {
+    background: linear-gradient(135deg, #d97706, #f59e0b);
+}
+
+
 .aliado-card-body {
     padding: 1.1rem 1.2rem 1.3rem;
     flex: 1;

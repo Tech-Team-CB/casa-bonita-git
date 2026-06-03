@@ -111,8 +111,8 @@
                     <select class="aliados-select" id="aliadosCategory">
                         <option value="">Todas las categorías</option>
                         <option value="restaurantes">Restaurantes &amp; Cafés</option>
-                        <option value="salud">Salud &amp; Belleza</option>
-                        <option value="deportes">Bienestar &amp; Deportes</option>
+                        <option value="salud">Salud &amp; Bienestar</option>
+                        <option value="deportes">Belleza &amp; Deporte</option>
                         <option value="servicios-hogar">Servicios para el hogar</option>
                         <option value="educacion">Educación &amp; Formación</option>
                         <option value="mascotas">Mundo Mascota</option>
@@ -296,6 +296,24 @@
         // Cada aliado tiene: nombre, slug, categoria, imagen, descuento, enlace (opcional)
         const ALIADOS = [
             {
+                nombre: 'Enero',
+                slug: 'enero',
+                categoria: 'restaurantes',
+                categoriaLabel: 'Restaurantes & Cafés',
+                imagen: 'assets/img/ENERO_LOGO.webp',
+                descuento: '15% de descuento',
+                enlace: 'aliado-detalle.html?brand=enero'
+            },
+            {
+                nombre: 'Qala Club',
+                slug: 'qala-club',
+                categoria: 'restaurantes',
+                categoriaLabel: 'Restaurantes & Cafés',
+                imagen: 'assets/img/Qala.webp',
+                descuento: '15% de descuento en carta y 3x2 en coctelería',
+                enlace: 'aliado-detalle.html?brand=qala-club'
+            },
+            {
                 nombre: 'Macaco Helado',
                 slug: 'macaco-helado',
                 categoria: 'restaurantes',
@@ -303,15 +321,6 @@
                 imagen: 'assets/img/logomacaco.webp',
                 descuento: '10% de descuento',
                 enlace: 'aliado-detalle.html?brand=macaco-helado'
-            },
-            {
-                nombre: 'Wings Grill',
-                slug: 'wings-grill',
-                categoria: 'restaurantes',
-                categoriaLabel: 'Restaurantes & Cafés',
-                imagen: 'assets/img/LOGO  WINGSGRILL.webp',
-                descuento: '16% de descuento',
-                enlace: 'aliado-detalle.html?brand=wings-grill'
             },
             {
                 nombre: 'Poción',
@@ -323,6 +332,15 @@
                 enlace: 'aliado-detalle.html?brand=pocion'
             },
             {
+                nombre: 'Wings Grill',
+                slug: 'wings-grill',
+                categoria: 'restaurantes',
+                categoriaLabel: 'Restaurantes & Cafés',
+                imagen: 'assets/img/LOGO  WINGSGRILL.webp',
+                descuento: '16% de descuento',
+                enlace: 'aliado-detalle.html?brand=wings-grill'
+            },
+            {
                 nombre: 'Gassel S.A.C',
                 slug: 'gassel',
                 categoria: 'servicios-hogar',
@@ -332,28 +350,37 @@
                 enlace: 'aliado-detalle.html?brand=gassel'
             },
             {
+                nombre: 'VINALI Medicina Integrativa',
+                slug: 'vinali-medicina-integrativa',
+                categoria: 'salud',
+                categoriaLabel: 'Salud & Bienestar',
+                imagen: 'assets/img/VINALI.webp',
+                descuento: 'Hasta 50% de descuento en servicios',
+                enlace: 'aliado-detalle.html?brand=vinali-medicina-integrativa'
+            },
+            {
                 nombre: 'Dr. Thelmo Ruiz',
                 slug: 'dr-thelmo-ruiz',
                 categoria: 'salud',
-                categoriaLabel: 'Salud & Belleza',
+                categoriaLabel: 'Salud & Bienestar',
                 imagen: 'assets/img/IMG_thelmo.webp',
                 descuento: 'Hasta un 20% de descuento',
                 enlace: 'aliado-detalle.html?brand=dr-thelmo-ruiz'
             },
             {
-                nombre: 'Enero',
-                slug: 'enero',
-                categoria: 'restaurantes',
-                categoriaLabel: 'Restaurantes & Cafés',
-                imagen: 'assets/img/ENERO_LOGO.webp',
-                descuento: '15% de descuento',
-                enlace: 'aliado-detalle.html?brand=enero'
+                nombre: 'Consultorio Estomatológico LEAL',
+                slug: 'consultorio-leal',
+                categoria: 'salud',
+                categoriaLabel: 'Salud & Bienestar',
+                imagen: 'assets/img/LEAL.webp',
+                descuento: '16% de descuento en servicios odontológicos',
+                enlace: 'aliado-detalle.html?brand=consultorio-leal'
             },
             {
                 nombre: 'Bocami',
                 slug: 'bocami',
                 categoria: 'salud',
-                categoriaLabel: 'Salud & Belleza',
+                categoriaLabel: 'Salud & Bienestar',
                 imagen: 'assets/img/bocami.webp',
                 descuento: 'Hasta un 20% de descuento',
                 enlace: 'aliado-detalle.html?brand=bocami'
@@ -361,20 +388,11 @@
             {
                 nombre: 'GlowUp',
                 slug: 'glowup',
-                categoria: 'salud',
-                categoriaLabel: 'Salud & Belleza',
+                categoria: 'deportes',
+                categoriaLabel: 'Belleza & Deporte',
                 imagen: 'assets/img/GLOWUP.webp',
                 descuento: 'Hasta un 20% de descuento',
                 enlace: 'aliado-detalle.html?brand=glowup'
-            },
-            {
-                nombre: 'Qala Club',
-                slug: 'qala-club',
-                categoria: 'restaurantes',
-                categoriaLabel: 'Restaurantes & Cafés',
-                imagen: 'assets/img/Qala.webp',
-                descuento: '15% de descuento en carta y 3x2 en coctelería',
-                enlace: 'aliado-detalle.html?brand=qala-club'
             },
             {
                 nombre: 'Chifa Whally',
@@ -389,36 +407,18 @@
                 nombre: 'Dr. Sandro Purizaca',
                 slug: 'dr-sandro-purizaca',
                 categoria: 'salud',
-                categoriaLabel: 'Salud & Belleza',
+                categoriaLabel: 'Salud & Bienestar',
                 imagen: 'assets/img/Sandro_Purizaca.webp',
                 descuento: '20% de descuento en tratamientos',
                 enlace: 'aliado-detalle.html?brand=dr-sandro-purizaca'
-            },
-            {
-                nombre: 'VINALI Medicina Integrativa',
-                slug: 'vinali-medicina-integrativa',
-                categoria: 'salud',
-                categoriaLabel: 'Salud & Belleza',
-                imagen: 'assets/img/VINALI.webp',
-                descuento: 'Hasta 50% de descuento en servicios',
-                enlace: 'aliado-detalle.html?brand=vinali-medicina-integrativa'
-            },
-            {
-                nombre: 'Consultorio Estomatológico LEAL',
-                slug: 'consultorio-leal',
-                categoria: 'salud',
-                categoriaLabel: 'Salud & Belleza',
-                imagen: 'assets/img/LEAL.webp',
-                descuento: '16% de descuento en servicios odontológicos',
-                enlace: 'aliado-detalle.html?brand=consultorio-leal'
             }
         ];
 
         // ── Mapeo de categorías ────────────────────────────────
         const CAT_LABELS = {
             'restaurantes': 'Restaurantes & Cafés',
-            'salud': 'Salud & Belleza',
-            'deportes': 'Deportes',
+            'salud': 'Salud & Bienestar',
+            'deportes': 'Belleza & Deporte',
             'servicios-hogar': 'Servicios para el hogar',
             'educacion': 'Educación & Formación',
             'mascotas': 'Mundo Mascota'
@@ -427,10 +427,10 @@
         const CAT_BADGE_CLASS = {
             'restaurantes': 'badge-restaurantes',
             'salud': 'badge-salud',
-            'deportes': 'badge-salud',
+            'deportes': 'badge-deportes',
             'servicios-hogar': 'badge-hogar',
-            'educacion': 'badge-salud',
-            'mascotas': 'badge-restaurantes'
+            'educacion': 'badge-educacion',
+            'mascotas': 'badge-mascotas'
         };
 
         // ── DOM ────────────────────────────────────────────────
@@ -514,6 +514,30 @@
                 if (this.value && CAT_LABELS[this.value]) {
                     titleEl.textContent = CAT_LABELS[this.value];
                     breadcrumbCat.textContent = CAT_LABELS[this.value];
+                } else {
+                    titleEl.textContent = 'Nuestros Aliados Estratégicos';
+                    breadcrumbCat.textContent = 'Aliados';
+                }
+
+                // Actualizar parámetro de URL (?cat=...) sin recargar la página
+                const newUrl = new URL(window.location);
+                if (this.value) {
+                    newUrl.searchParams.set('cat', this.value);
+                } else {
+                    newUrl.searchParams.delete('cat');
+                }
+                window.history.pushState({}, '', newUrl);
+
+                renderCards();
+            });
+
+            // Sincronizar el select y la interfaz si el usuario usa los botones de Atrás/Adelante del navegador
+            window.addEventListener('popstate', function () {
+                const currentCat = getUrlCat();
+                categorySelect.value = currentCat;
+                if (currentCat && CAT_LABELS[currentCat]) {
+                    titleEl.textContent = CAT_LABELS[currentCat];
+                    breadcrumbCat.textContent = CAT_LABELS[currentCat];
                 } else {
                     titleEl.textContent = 'Nuestros Aliados Estratégicos';
                     breadcrumbCat.textContent = 'Aliados';
