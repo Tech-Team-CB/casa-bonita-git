@@ -268,10 +268,6 @@ a {
     transition: var(--transition);
 }
 
-a:hover {
-    color: var(--accent-color);
-}
-
 .desktop-nav {
     display: flex;
     align-items: center;
