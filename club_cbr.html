@@ -26,12 +26,13 @@
     <link rel="stylesheet" href="assets/css/style_header_footer.css">
 </head>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-T0JDPBFVPJ"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NXVSWKSPXG"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', 'G-T0JDPBFVPJ');
+    gtag('config', 'G-NXVSWKSPXG');
 </script>
 
 <body>
@@ -210,6 +211,78 @@
                             </svg>
                         </button>
                     </div>
+
+                    <!-- ── SECCIÓN DE CURSOS CBR ───────────────────────────── -->
+                    <div class="club-course-section" id="club-cursos">
+                        <div class="course-card">
+                            <!-- Grid superior: reproductor + info -->
+                            <div class="course-top-grid">
+                                <!-- Columna izquierda: Reproductor YouTube -->
+                                <div class="course-left">
+                                    <div class="course-video-wrapper">
+                                        <div id="courseYoutubePlayer"></div>
+                                    </div>
+                                    <!-- Barra de progreso general del curso -->
+                                    <div class="course-progress-track">
+                                        <div class="course-progress-bar-fill" id="courseProgressFill" style="width:0%"></div>
+                                    </div>
+                                    <p class="course-progress-label" id="courseProgressLabel">0% completado</p>
+                                </div>
+
+                                <!-- Columna derecha: Info + Acciones -->
+                                <div class="course-right">
+                                    <span class="course-badge-basic">CURSO BÁSICO</span>
+                                    <h2 class="course-title">Tu Casa Propia Paso a Paso</h2>
+                                    <p class="course-desc">Descubre el verdadero impacto de tener tu casa propia, aprende estrategias prácticas de ahorro y da el paso definitivo para construir el futuro seguro de tu familia.</p>
+
+                                    <div class="course-meta-grid">
+                                        <div class="course-meta-item">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="course-meta-icon">
+                                                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                                            </svg>
+                                            <span class="course-meta-label">Duración</span>
+                                            <strong class="course-meta-value">11 min</strong>
+                                        </div>
+                                        <div class="course-meta-item">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="course-meta-icon">
+                                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                            </svg>
+                                            <span class="course-meta-label">Nivel</span>
+                                            <strong class="course-meta-value">Básico</strong>
+                                        </div>
+                                        <div class="course-meta-item">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="course-meta-icon">
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                                            </svg>
+                                            <span class="course-meta-label">Instructor</span>
+                                            <strong class="course-meta-value">Casa Bonita Realtors 4U</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="course-actions">
+                                        <a href="assets/docs/GUIA_DE_ESTUDIO.pdf" class="course-btn-pdf" id="courseBtnPdf" download="GUIA_DE_ESTUDIO.pdf" target="_blank" rel="noopener noreferrer">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                                            </svg>
+                                            Descargar Material PDF
+                                        </a>
+                                        <button class="course-btn-action" id="courseActionBtn">
+                                            Comenzar Curso <span class="course-btn-arrow">›</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Temario / Contenido del Curso -->
+                            <div class="course-syllabus">
+                                <h3 class="course-syllabus-title">Contenido del Curso</h3>
+                                <div class="course-modules-list" id="courseModulesList">
+                                    <!-- Renderizado dinámicamente por JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ── FIN SECCIÓN CURSOS CBR ──────────────────────────── -->
 
                     <div class="club-associate-form-block" id="club-associate-form-block">
                         <h4>FORMA PARTE DE NUESTROS SOCIOS ALIADOS</h4>
@@ -508,6 +581,308 @@
                 videoObserver.observe(heroVideo);
             }
         });
+    </script>
+
+    <!-- Cursos CBR: YouTube Iframe API + LocalStorage Progress Tracking -->
+    <script>
+        (function () {
+            'use strict';
+
+            // ── Base de datos del curso ──────────────────────────────────
+            // Para cambiar los IDs de YouTube: editar los valores "videoId" de cada módulo.
+            // Para cambiar el PDF: editar el valor "pdfUrl".
+            var CURSO = {
+                slug: 'tu-casa-propia-paso-a-paso',
+                pdfUrl: 'assets/docs/GUIA_DE_ESTUDIO.pdf',
+                modules: [
+                    { id: 'modulo-1', label: 'Módulo 1', titulo: '¿Por qué comprar tu casa propia cambia tu futuro?', duracion: '4:02 min', videoId: 'W8eazmYMQc4' },
+                    { id: 'modulo-2', label: 'Módulo 2', titulo: 'Cómo ahorrar para tu casa propia',                  duracion: '3:34 min', videoId: '1E_ltENlOrY' },
+                    { id: 'modulo-3', label: 'Módulo 3', titulo: 'Construye el futuro de tu familia',               duracion: '2:59 min', videoId: 'xbHxT2Pb9ek' }
+                ]
+            };
+
+            var STORAGE_KEY   = 'cbr_cursos_progreso';
+            var ytPlayer      = null;
+            var progressTimer = null;
+            var currentIndex  = 0;
+            var ytApiLoaded   = false;
+
+            // ── LocalStorage: helpers ────────────────────────────────────
+            function loadProgress() {
+                try {
+                    var all = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+                    return all[CURSO.slug] || null;
+                } catch (e) { return null; }
+            }
+
+            function saveProgress(patch) {
+                try {
+                    var all  = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+                    var data = all[CURSO.slug] || { started: false, modules: {} };
+                    // Inicializar módulos faltantes
+                    for (var i = 0; i < CURSO.modules.length; i++) {
+                        if (!data.modules[CURSO.modules[i].id]) {
+                            data.modules[CURSO.modules[i].id] = { completed: false, time: 0 };
+                        }
+                    }
+                    // Aplicar parche
+                    for (var key in patch) { data[key] = patch[key]; }
+                    all[CURSO.slug] = data;
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+                } catch (e) {}
+            }
+
+            function markModuleCompleted(moduleId) {
+                try {
+                    var all  = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+                    var data = all[CURSO.slug] || { modules: {} };
+                    if (!data.modules[moduleId]) data.modules[moduleId] = {};
+                    data.modules[moduleId].completed = true;
+                    data.modules[moduleId].time = 0;
+                    all[CURSO.slug] = data;
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+                } catch (e) {}
+                updateUI();
+            }
+
+            function findModuleIndex(moduleId) {
+                for (var i = 0; i < CURSO.modules.length; i++) {
+                    if (CURSO.modules[i].id === moduleId) return i;
+                }
+                return 0;
+            }
+
+            // ── Renderizar temario ───────────────────────────────────────
+            function renderModules() {
+                var list = document.getElementById('courseModulesList');
+                if (!list) return;
+                var progress = loadProgress();
+
+                var html = '';
+                for (var i = 0; i < CURSO.modules.length; i++) {
+                    var m       = CURSO.modules[i];
+                    var isDone  = progress && progress.modules && progress.modules[m.id] && progress.modules[m.id].completed;
+                    var isUnlocked = (i === 0) || isDone || (progress && progress.modules && progress.modules[CURSO.modules[i - 1].id] && progress.modules[CURSO.modules[i - 1].id].completed);
+                    var isActive = (i === currentIndex);
+
+                    var statusIcon;
+                    if (!isUnlocked) {
+                        statusIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+                    } else if (isDone) {
+                        statusIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+                    } else {
+                        statusIcon = '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+                    }
+
+                    html += '<div class="module-item' + (isActive ? ' active' : '') + (isDone ? ' completed' : '') + (!isUnlocked ? ' locked' : '') + '" data-index="' + i + '" data-module-id="' + m.id + '">';
+                    html +=   '<div class="module-header">';
+                    html +=     '<div class="module-left">';
+                    html +=       '<span class="module-status-icon">' + statusIcon + '</span>';
+                    html +=       '<span class="module-tag">' + m.label + '</span>';
+                    html +=       '<span class="module-title-text">' + m.titulo + '</span>';
+                    html +=     '</div>';
+                    html +=     '<div class="module-right">';
+                    html +=       '<span class="module-duration">';
+                    html +=         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+                    html +=         m.duracion;
+                    html +=       '</span>';
+                    html +=       '<svg class="module-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>';
+                    html +=     '</div>';
+                    html +=   '</div>';
+                    html += '</div>';
+                }
+                list.innerHTML = html;
+
+                // Agregar listeners a cada fila
+                var items = list.querySelectorAll('.module-item');
+                for (var j = 0; j < items.length; j++) {
+                    (function (el) {
+                        el.addEventListener('click', function () {
+                            if (el.classList.contains('locked')) return;
+                            switchModule(parseInt(el.getAttribute('data-index'), 10));
+                        });
+                    })(items[j]);
+                }
+            }
+
+            // ── Actualizar barra de progreso y botón principal ──────────
+            function updateUI() {
+                var progress = loadProgress();
+                var done = 0;
+                if (progress && progress.modules) {
+                    for (var i = 0; i < CURSO.modules.length; i++) {
+                        if (progress.modules[CURSO.modules[i].id] && progress.modules[CURSO.modules[i].id].completed) done++;
+                    }
+                }
+                var pct = Math.round((done / CURSO.modules.length) * 100);
+
+                var fill  = document.getElementById('courseProgressFill');
+                var label = document.getElementById('courseProgressLabel');
+                var btn   = document.getElementById('courseActionBtn');
+
+                if (fill)  fill.style.width = pct + '%';
+                if (label) label.textContent = pct + '% completado';
+
+                if (btn && progress && progress.started) {
+                    var txt = pct >= 100 ? 'Ver de nuevo' : 'Continuar Curso';
+                    btn.innerHTML = txt + ' <span class="course-btn-arrow">›</span>';
+                }
+
+                renderModules();
+            }
+
+            // ── Cambiar de módulo ────────────────────────────────────────
+            function switchModule(index) {
+                if (index < 0 || index >= CURSO.modules.length) return;
+                
+                // Bloquear cambio si no está desbloqueado
+                var progress = loadProgress();
+                var isUnlocked = (index === 0) || (progress && progress.modules && progress.modules[CURSO.modules[index - 1].id] && progress.modules[CURSO.modules[index - 1].id].completed);
+                if (!isUnlocked) return;
+
+                currentIndex = index;
+                var mod = CURSO.modules[index];
+                saveProgress({ started: true, lastModule: mod.id, lastVideoTime: 0 });
+                if (ytPlayer && ytPlayer.loadVideoById) {
+                    ytPlayer.loadVideoById(mod.videoId);
+                }
+                renderModules();
+            }
+
+            // ── Acción botón principal (Comenzar / Continuar Curso) ──────
+            window.courseStart = function () {
+                var section = document.getElementById('club-cursos');
+                if (section) {
+                    var header = document.querySelector('.main-header');
+                    var offset = header ? header.offsetHeight + 16 : 80;
+                    section.style.scrollMarginTop = offset + 'px';
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                var progress = loadProgress();
+                var startIdx = 0;
+                if (progress && progress.lastModule) {
+                    startIdx = findModuleIndex(progress.lastModule);
+                }
+
+                // Validar desbloqueo
+                var validStartIdx = 0;
+                for (var i = 0; i < CURSO.modules.length; i++) {
+                    var unlocked = (i === 0) || (progress && progress.modules && progress.modules[CURSO.modules[i - 1].id] && progress.modules[CURSO.modules[i - 1].id].completed);
+                    if (unlocked) {
+                        validStartIdx = i;
+                    } else {
+                        break;
+                    }
+                }
+                if (startIdx > validStartIdx) {
+                    startIdx = validStartIdx;
+                }
+
+                if (ytPlayer && ytPlayer.playVideo) {
+                    if (startIdx !== currentIndex) {
+                        switchModule(startIdx);
+                    } else {
+                        var t = (progress && progress.lastVideoTime) || 0;
+                        if (t > 5) ytPlayer.seekTo(t, true);
+                        ytPlayer.playVideo();
+                    }
+                }
+            };
+
+            // ── YouTube Iframe API callback ──────────────────────────────
+            window.onYouTubeIframeAPIReady = function () {
+                var progress   = loadProgress();
+                var startIdx   = progress && progress.lastModule ? findModuleIndex(progress.lastModule) : 0;
+
+                // Validar desbloqueo
+                var validStartIdx = 0;
+                for (var i = 0; i < CURSO.modules.length; i++) {
+                    var unlocked = (i === 0) || (progress && progress.modules && progress.modules[CURSO.modules[i - 1].id] && progress.modules[CURSO.modules[i - 1].id].completed);
+                    if (unlocked) {
+                        validStartIdx = i;
+                    } else {
+                        break;
+                    }
+                }
+                if (startIdx > validStartIdx) {
+                    startIdx = validStartIdx;
+                }
+
+                currentIndex   = startIdx;
+                var mod        = CURSO.modules[startIdx];
+
+                ytPlayer = new YT.Player('courseYoutubePlayer', {
+                    videoId: mod.videoId,
+                    playerVars: { rel: 0, modestbranding: 1, playsinline: 1 },
+                    events: {
+                        onReady: function (e) {
+                            var t = (progress && progress.lastVideoTime) || 0;
+                            if (t > 5) e.target.seekTo(t, true);
+                            updateUI();
+                        },
+                        onStateChange: function (e) {
+                            clearInterval(progressTimer);
+                            // PLAYING = 1: guardar posición cada 2 segundos
+                            if (e.data === YT.PlayerState.PLAYING) {
+                                progressTimer = setInterval(function () {
+                                    var sec = Math.floor(ytPlayer.getCurrentTime());
+                                    saveProgress({ lastVideoTime: sec });
+                                }, 2000);
+                            }
+                            // ENDED = 0: marcar módulo como completado y pasar al siguiente
+                            if (e.data === YT.PlayerState.ENDED) {
+                                markModuleCompleted(CURSO.modules[currentIndex].id);
+                                saveProgress({ lastVideoTime: 0 });
+                                if (currentIndex < CURSO.modules.length - 1) {
+                                    setTimeout(function () { switchModule(currentIndex + 1); }, 1200);
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
+            // ── Lazy-load: inyectar API de YouTube solo al hacer scroll hasta la sección
+            function injectYouTubeAPI() {
+                if (ytApiLoaded) return;
+                ytApiLoaded = true;
+                var tag = document.createElement('script');
+                tag.src = 'https://www.youtube.com/iframe_api';
+                document.head.appendChild(tag);
+            }
+
+            // ── Inicialización ───────────────────────────────────────────
+            document.addEventListener('DOMContentLoaded', function () {
+                var section = document.getElementById('club-cursos');
+                if (!section) return;
+
+                // Enlazar PDF
+                var pdfBtn = document.getElementById('courseBtnPdf');
+                if (pdfBtn) pdfBtn.href = CURSO.pdfUrl;
+
+                // Enlazar botón de acción
+                var actionBtn = document.getElementById('courseActionBtn');
+                if (actionBtn) actionBtn.addEventListener('click', window.courseStart);
+
+                // Estado inicial de la UI
+                renderModules();
+                updateUI();
+
+                // IntersectionObserver: cargar YouTube API solo cuando el usuario llega a la sección
+                if ('IntersectionObserver' in window) {
+                    var obs = new IntersectionObserver(function (entries) {
+                        if (entries[0].isIntersecting) {
+                            injectYouTubeAPI();
+                            obs.unobserve(section);
+                        }
+                    }, { rootMargin: '200px' });
+                    obs.observe(section);
+                } else {
+                    injectYouTubeAPI(); // fallback para navegadores sin IntersectionObserver
+                }
+            });
+
+        })();
     </script>
 
     <!-- WhatsApp flotante -->
