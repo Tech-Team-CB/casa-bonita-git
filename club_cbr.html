@@ -676,16 +676,18 @@
 
                     html += '<div class="module-item' + (isActive ? ' active' : '') + (isDone ? ' completed' : '') + (!isUnlocked ? ' locked' : '') + '" data-index="' + i + '" data-module-id="' + m.id + '">';
                     html +=   '<div class="module-header">';
-                    html +=     '<div class="module-left">';
-                    html +=       '<span class="module-status-icon">' + statusIcon + '</span>';
-                    html +=       '<span class="module-tag">' + m.label + '</span>';
+                    html +=     '<span class="module-status-icon">' + statusIcon + '</span>';
+                    html +=     '<div class="module-content">';
+                    html +=       '<div class="module-meta-row">';
+                    html +=         '<span class="module-tag">' + m.label + '</span>';
+                    html +=         '<span class="module-duration">';
+                    html +=           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+                    html +=           m.duracion;
+                    html +=         '</span>';
+                    html +=       '</div>';
                     html +=       '<span class="module-title-text">' + m.titulo + '</span>';
                     html +=     '</div>';
-                    html +=     '<div class="module-right">';
-                    html +=       '<span class="module-duration">';
-                    html +=         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
-                    html +=         m.duracion;
-                    html +=       '</span>';
+                    html +=     '<div class="module-action">';
                     html +=       '<svg class="module-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>';
                     html +=     '</div>';
                     html +=   '</div>';
