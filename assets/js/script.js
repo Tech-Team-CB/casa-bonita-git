@@ -1135,3 +1135,41 @@ document.addEventListener('keydown', function (e) {
         btn.setAttribute('aria-expanded', 'false');
     }
 });
+
+/* ── Popup Licencia de Habilitación Urbana ── */
+function initLicenciaPopup() {
+    const STORAGE_KEY = 'cb_popup_licencia_v9';
+    const popup = document.getElementById('cbPopupLicencia');
+    if (!popup || localStorage.getItem(STORAGE_KEY) === 'dismissed') return;
+
+    const closeBtn = document.getElementById('cbPopupClose');
+    const imgLink = document.getElementById('cbPopupImgLink');
+
+    setTimeout(() => {
+        popup.classList.add('active');
+        popup.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('cb-popup-open');
+    }, 600);
+
+    const closePopup = () => {
+        popup.classList.remove('active');
+        popup.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('cb-popup-open');
+        try { localStorage.setItem(STORAGE_KEY, 'dismissed'); } catch (e) {}
+    };
+
+    if (closeBtn) closeBtn.addEventListener('click', closePopup);
+    popup.addEventListener('click', (e) => { if (e.target === popup) closePopup(); });
+    if (imgLink) imgLink.addEventListener('click', closePopup);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && popup.classList.contains('active')) closePopup();
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLicenciaPopup);
+} else {
+    initLicenciaPopup();
+}
+

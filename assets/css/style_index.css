@@ -3166,3 +3166,110 @@ img {
         justify-content: center;
     }
 }
+
+/* ==========================================================================
+   Popup Licencia de Habilitación Urbana (Optimizado)
+   ========================================================================== */
+body.cb-popup-open {
+    overflow: hidden;
+}
+
+.cb-popup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.8s ease, visibility 0.8s;
+}
+
+.cb-popup-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.cb-popup-dialog {
+    position: relative;
+    max-width: 440px;
+    transform: scale(0.88) translateY(24px);
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.4, 1);
+}
+
+.cb-popup-overlay.active .cb-popup-dialog {
+    transform: scale(1) translateY(0);
+}
+
+.cb-popup-close {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #141416;
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.cb-popup-close:hover {
+    background: #000;
+    transform: scale(1.1);
+}
+
+.cb-popup-img-link {
+    display: block;
+    line-height: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease;
+}
+
+.cb-popup-img-link:hover {
+    transform: scale(1.02);
+}
+
+.cb-popup-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: min(86vh, 640px);
+    object-fit: contain;
+    border-radius: 20px;
+}
+
+@media (max-width: 480px) {
+    .cb-popup-dialog {
+        max-width: 92vw;
+    }
+    .cb-popup-img-link,
+    .cb-popup-img {
+        border-radius: 16px;
+    }
+    .cb-popup-close {
+        top: 8px;
+        right: 8px;
+        width: 32px;
+        height: 32px;
+        font-size: 20px;
+        background: rgba(20, 20, 22, 0.85);
+    }
+}
