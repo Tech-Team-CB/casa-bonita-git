@@ -3183,7 +3183,7 @@ body.cb-popup-open {
     justify-content: center;
     padding: 16px;
     box-sizing: border-box;
-    background: rgba(0, 0, 0, 0.75);
+    background:rgb(2 48 71 / 50%);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     opacity: 0;
